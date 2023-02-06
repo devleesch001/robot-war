@@ -5,11 +5,13 @@ import {Battle, getListBattle} from "../api/route";
 
 const combats = [
     {id: 1, fighter: ["equipe1","equipe2"]}, //pour plus tard ajouter une images du robot
-    {id: 2, fighter: ["equipe4","equipe3"]}
+    {id: 2, fighter: ["equipe4","equipe3"]},
+    {id: 3, fighter: ["equipe1","equipe3"]},
+    {id: 4, fighter: ["equipe4","equipe2"]}
 ];
 
 
-const CombatBoard: React.FC = () => {
+const CardCombatBoard: React.FC = () => {
     const [battleList, setbattlelist] = React.useState<Battle[]>([]);
 
     React.useEffect(() => {
@@ -34,11 +36,11 @@ const CombatBoard: React.FC = () => {
                 {
                     combats.map(combat => (
                         <Row>
-                        <Col xs={{span: 10, offset: 1}} lg={{span: 6, offset: 2}}>
-                            {combat.team_1.}
+                        <Col xs={{span: 12, }} >
+                            {combat.fighter.at(0)}
                         </Col>
-                        <Col xs={{span: 20, offset: 1}} lg={{span: 6, offset: 2}}>
-
+                        <Col xs={{span: 12, }} >
+                            {combat.fighter.at(1)}
                         </Col>
                         <Divider style={{color:"green"}}>vs</Divider>
                     </Row>
@@ -50,4 +52,4 @@ const CombatBoard: React.FC = () => {
 
 
 }
-export default CombatBoard
+export default CardCombatBoard

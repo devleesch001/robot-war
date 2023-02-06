@@ -1,11 +1,12 @@
 import React from 'react';
 import './App.css';
-import CombatBoard from "./components/combatBoard";
+import CardCombatBoard from "./components/cardCombatBoard";
+import GridBattleBoard from "./components/gridBattleBoard";
 
 function App() {
   return (
     <div className="App">
-      <CombatBoard/>
+      <CardCombatBoard/>
     </div>
   );
 }
