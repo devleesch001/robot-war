@@ -1,38 +1,12 @@
 import React, { useEffect } from 'react';
-import { Card, Divider, Col, Row, Table, Grid, Typography } from 'antd';
+import { Card, Divider, Col, Row, Button, Typography } from 'antd';
 import { Battle, getListBattle } from '../../api/route';
-import { ColumnsType } from 'antd/lib/table';
 
 const combats = [
     { id: 1, fighter: ['equipe1', 'equipe2'] }, //pour plus tard ajouter une images du robot
     { id: 2, fighter: ['equipe4', 'equipe3'] },
     { id: 3, fighter: ['equipe1', 'equipe3'] },
     { id: 4, fighter: ['equipe4', 'equipe2'] },
-];
-
-interface DataType {
-    id: number;
-    team1: string;
-    team2: string;
-}
-
-const columns: ColumnsType<DataType> = [
-    {
-        title: 'Ordre Combat',
-        dataIndex: 'id',
-        key: 'id',
-        render: (text) => <a>{text}</a>,
-    },
-    {
-        title: 'Team 1',
-        dataIndex: 'team1',
-        key: 'team1',
-    },
-    {
-        title: 'Team 2',
-        dataIndex: 'team 2',
-        key: 'team 2',
-    },
 ];
 
 interface BattleLineProps {
@@ -46,21 +20,23 @@ export const BattleLine: React.FC<BattleLineProps> = (props) => {
     return (
         <Row gutter={[18, 18]} justify={'center'} style={{ textAlign: 'center' }}>
             <Col span={8}>
-                <Typography.Text>{fighter1}</Typography.Text>
+                <Button type="primary">{fighter1}</Button>
             </Col>
             <Col span={8}>
-                <Typography.Text strong type={'danger'}>
+                <Typography.Text strong type={'warning'}>
                     vs
                 </Typography.Text>
             </Col>
             <Col span={8}>
-                <Typography.Text>{fighter2}</Typography.Text>
+                <Button type="primary" danger>
+                    {fighter2}
+                </Button>
             </Col>
         </Row>
     );
 };
 
-const GridCombatBoard: React.FC = () => {
+const CombatBoard: React.FC = () => {
     const [battleList, setbattlelist] = React.useState<Battle[]>([]);
 
     React.useEffect(() => {
@@ -77,16 +53,18 @@ const GridCombatBoard: React.FC = () => {
     }, []);
 
     return (
-        <>
-            <BattleLine fighter1={'test1'} fighter2={'test2'} />
-            <Divider style={{ color: 'green' }}></Divider>
-            <BattleLine fighter1={'test1'} fighter2={'test2'} />
-            <Divider style={{ color: 'green' }}></Divider>
-            <BattleLine fighter1={'test1'} fighter2={'test2'} />
-            <Divider style={{ color: 'green' }}></Divider>
-            <BattleLine fighter1={'test1'} fighter2={'test2'} />
-            <Divider style={{ color: 'green' }}></Divider>
-        </>
+        <Card
+            title="Board Fights"
+            style={{ minWidth: 280 }}
+            headStyle={{ backgroundColor: 'black', color: 'whitesmoke' }}
+        >
+            {combats.map((combat) => (
+                <React.Fragment key={combat.id}>
+                    <BattleLine fighter1={combat.fighter[0]} fighter2={combat.fighter[1]} />
+                    <Divider style={{ color: 'green' }} />
+                </React.Fragment>
+            ))}
+        </Card>
     );
 };
-export default GridCombatBoard;
+export default CombatBoard;

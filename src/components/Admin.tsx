@@ -5,7 +5,7 @@ import test from '../test.png';
 const { Header, Footer, Sider, Content } = Layout;
 
 import { red } from '@ant-design/colors';
-import CardCombatBoard from './BattleBoard/CardCombatBoard';
+import CombatBoard from './BattleBoard/CombatBoard';
 import CreateTournament from './GameMode/Tournament/CreateTournament';
 import CreateRobot from './Robot/CreateRobot';
 

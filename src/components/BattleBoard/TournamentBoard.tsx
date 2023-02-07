@@ -1,12 +1,5 @@
 import React from 'react';
-
-import {
-    SingleEliminationBracket,
-    DoubleEliminationBracket,
-    Match,
-    MATCH_STATES,
-    SVGViewer,
-} from '@g-loot/react-tournament-brackets';
+import { Card } from 'antd';
 
 const combats = [
     { id: 1, fighter: ['equipe1', 'equipe2'] }, //pour plus tard ajouter une images du robot
@@ -17,6 +10,12 @@ const combats = [
 ];
 
 const TournamentBoard: React.FC = () => {
-    return <></>;
+    return (
+        <Card
+            title="Board Tournament"
+            style={{ minWidth: 280 }}
+            headStyle={{ backgroundColor: 'black', color: 'whitesmoke' }}
+        ></Card>
+    );
 };
 export default TournamentBoard;
