@@ -20,18 +20,24 @@ const formItemLayoutWithOutLabel = {
     },
 };
 
-const NewTounament: React.FC = () => {
-    function onFinish() {}
-
+const NewTournament: React.FC = () => {
+    const onFinish = (values: any) => {
+        console.log('Received values of form:', values);
+    };
     return (
-        <Form name="dynamic_form_item" {...formItemLayoutWithOutLabel} onFinish={onFinish} style={{ maxWidth: 600 }}>
+        <Form
+            name="New_Tounament_form_item"
+            {...formItemLayoutWithOutLabel}
+            onFinish={onFinish}
+            style={{ maxWidth: 600 }}
+        >
             <Form.List
                 name="names"
                 rules={[
                     {
                         validator: async (_, names) => {
-                            if (!names || names.length < 2) {
-                                return Promise.reject(new Error('At least 2 passengers'));
+                            if (!names || names.length < 4) {
+                                return Promise.reject(new Error('minimun 4 teams to create tournament'));
                             }
                         },
                     },
@@ -42,7 +48,7 @@ const NewTounament: React.FC = () => {
                         {fields.map((field, index) => (
                             <Form.Item
                                 {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
-                                label={index === 0 ? 'Passengers' : ''}
+                                label={index === 0 ? 'Teams' : ''}
                                 required={false}
                                 key={field.key}
                             >
@@ -53,12 +59,12 @@ const NewTounament: React.FC = () => {
                                         {
                                             required: true,
                                             whitespace: true,
-                                            message: "Please input passenger's name or delete this field.",
+                                            message: "Please input team's name or delete this field.",
                                         },
                                     ]}
                                     noStyle
                                 >
-                                    <Input placeholder="passenger name" style={{ width: '60%' }} />
+                                    <Input placeholder="Teams name" style={{ width: '60%' }} />
                                 </Form.Item>
                                 {fields.length > 1 ? (
                                     <MinusCircleOutlined
@@ -75,17 +81,7 @@ const NewTounament: React.FC = () => {
                                 style={{ width: '60%' }}
                                 icon={<PlusOutlined />}
                             >
-                                Add field
-                            </Button>
-                            <Button
-                                type="dashed"
-                                onClick={() => {
-                                    add('The head item', 0);
-                                }}
-                                style={{ width: '60%', marginTop: '20px' }}
-                                icon={<PlusOutlined />}
-                            >
-                                Add field at head
+                                Add Teams
                             </Button>
                             <Form.ErrorList errors={errors} />
                         </Form.Item>
@@ -100,4 +96,5 @@ const NewTounament: React.FC = () => {
         </Form>
     );
 };
-export default NewTounament;
+
+export default NewTournament;
