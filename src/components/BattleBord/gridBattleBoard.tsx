@@ -1,14 +1,13 @@
-import React, {useEffect} from "react";
-import {Card, Divider, Col, Row} from 'antd';
-import {Battle, getListBattle} from "../../api/route";
-import {ColumnsType} from "antd/lib/table";
-
+import React, { useEffect } from 'react';
+import { Card, Divider, Col, Row } from 'antd';
+import { Battle, getListBattle } from '../../api/route';
+import { ColumnsType } from 'antd/lib/table';
 
 const combats = [
-    {id: 1, fighter: ["equipe1","equipe2"]}, //pour plus tard ajouter une images du robot
-    {id: 2, fighter: ["equipe4","equipe3"]},
-    {id: 3, fighter: ["equipe1","equipe3"]},
-    {id: 4, fighter: ["equipe4","equipe2"]}
+    { id: 1, fighter: ['equipe1', 'equipe2'] }, //pour plus tard ajouter une images du robot
+    { id: 2, fighter: ['equipe4', 'equipe3'] },
+    { id: 3, fighter: ['equipe1', 'equipe3'] },
+    { id: 4, fighter: ['equipe4', 'equipe2'] },
 ];
 
 interface DataType {
@@ -33,32 +32,25 @@ const columns: ColumnsType<DataType> = [
         title: 'Team 2',
         dataIndex: 'team 2',
         key: 'team 2',
-    }]
+    },
+];
 
-
-    const GridCombatBoard: React.FC = () => {
+const GridCombatBoard: React.FC = () => {
     const [battleList, setbattlelist] = React.useState<Battle[]>([]);
 
     React.useEffect(() => {
         const interval = setInterval(() => {
             getListBattle()
                 .then((battle) => {
-                    setbattlelist(battle)
+                    setbattlelist(battle);
                 })
                 .catch((err) => {
-                    setbattlelist([])
+                    setbattlelist([]);
                 });
         }, 1000);
         return () => clearInterval(interval);
     }, []);
 
-
-    return (
-        <>
-
-        </>
-    )
-
-
-}
-export default GridCombatBoard
+    return <></>;
+};
+export default GridCombatBoard;

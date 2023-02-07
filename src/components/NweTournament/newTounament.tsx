@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
 
@@ -20,20 +20,11 @@ const formItemLayoutWithOutLabel = {
     },
 };
 
+const NewTounament: React.FC = () => {
+    function onFinish() {}
 
-const NewTounament: React.FC = () =>{
-
-    function onFinish() {
-
-    }
-
-    return(
-        <Form
-            name="dynamic_form_item"
-            {...formItemLayoutWithOutLabel}
-            onFinish={onFinish}
-            style={{ maxWidth: 600 }}
-        >
+    return (
+        <Form name="dynamic_form_item" {...formItemLayoutWithOutLabel} onFinish={onFinish} style={{ maxWidth: 600 }}>
             <Form.List
                 name="names"
                 rules={[
@@ -107,7 +98,6 @@ const NewTounament: React.FC = () =>{
                 </Button>
             </Form.Item>
         </Form>
-    )
-
-}
-export default NewTounament
+    );
+};
+export default NewTounament;
