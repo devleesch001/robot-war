@@ -21,6 +21,7 @@ const formItemLayoutWithOutLabel = {
 };
 
 
+
 const NewTournament: React.FC = () =>{
 
     const onFinish = (values: any) => {
@@ -91,7 +92,7 @@ const NewTournament: React.FC = () =>{
                 )}
             </Form.List>
             <Form.Item>
-                <Button type="primary" htmlType="submit">
+                <Button type="primary" htmlType="submit" onClick={createTournamentHandle}>
                     Submit
                 </Button>
             </Form.Item>
