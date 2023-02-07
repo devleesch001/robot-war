@@ -1,6 +1,7 @@
 import React from 'react';
 import { Col, Grid, Menu, Row, Typography } from 'antd';
 import { red } from '@ant-design/colors';
+import CardCombatBoard from './BattleBoard/CardCombatBoard';
 function Home() {
     return (
         <>
@@ -10,7 +11,7 @@ function Home() {
 
             <Row justify={'center'}>
                 <Col>
-                    <p>main page</p>
+                    <CardCombatBoard />
                 </Col>
             </Row>
         </>

@@ -34,7 +34,7 @@ const CardCombatBoard: React.FC = () => {
                 headStyle={{ backgroundColor: 'black', color: 'whitesmoke' }}
             >
                 {combats.map((combat) => (
-                    <Row>
+                    <Row key={combat.id}>
                         <Col xs={{ span: 12 }}>{combat.fighter.at(0)}</Col>
                         <Col xs={{ span: 12 }}>{combat.fighter.at(1)}</Col>
                         <Divider style={{ color: 'green' }}>vs</Divider>

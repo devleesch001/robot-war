@@ -35,7 +35,9 @@ const NewTournament: React.FC = () => {
     //TODO charger le select avec toutes les equipes disponible Bracket
 
     const [teams, setTeams] = useState('');
-    const selectHandle = () => {};
+    const selectHandle = () => {
+        console.log('ok');
+    };
     const CreateTournamentHandle = () => {
         //TODO recuperer les equipe selectionner pour le tournoi
         //TODO API TOURNOI POUR ENVOIE LINFO DU TOUNOI
