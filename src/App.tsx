@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import CardCombatBoard from "./components/cardCombatBoard";
-import GridBattleBoard from "./components/gridBattleBoard";
+import CardCombatBoard from "./components/BattleBord/cardCombatBoard";
+import GridBattleBoard from "./components/BattleBord/gridBattleBoard";
 
 function App() {
   return (

@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {Card, Divider, Col, Row} from 'antd';
-import {Battle, getListBattle} from "../api/route";
+import {Battle, getListBattle} from "../../api/route";
 
 
 const combats = [
