@@ -13,10 +13,6 @@ MongooseService.init()
 const app = express();
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
-    res.send('Express + JS Server');
-});
-
 app.use('/api', ApiIndex);
 
 app.listen(port, () => {
