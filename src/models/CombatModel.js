@@ -15,4 +15,4 @@ const combatSchema = new mongoose.Schema({
 });
 
 // Créer un modèle à partir du schéma de données des combats
-const Combat = mongoose.model("Combat", combatSchema);
+export const Combat = mongoose.model('Combat', combatSchema);

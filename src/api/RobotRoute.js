@@ -27,6 +27,9 @@ router.post('/', async (req, res) => {
         name: req.body.name,
     });
     console.log(newRobot);
+
+    await newRobot.save();
+
     return res.status(200).json(newRobot);
 });
 
