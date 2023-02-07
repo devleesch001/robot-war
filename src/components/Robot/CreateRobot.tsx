@@ -18,14 +18,13 @@ const CreateRobot: React.FC = () => {
         <Card
             title="Board Fights"
             bordered={false}
-            style={{ width: 300 }}
+            style={{ minWidth: 280 }}
             headStyle={{ backgroundColor: 'black', color: 'whitesmoke' }}
         >
             <Form
-                labelCol={{ span: 6 }}
-                wrapperCol={{ span: 20 }}
+                labelCol={{ span: 8 }}
+                wrapperCol={{ span: 16 }}
                 layout="horizontal"
-                style={{ maxWidth: 600 }}
                 //onChange={onFinish}
             >
                 <Form.Item label="Name" valuePropName="fileList">
@@ -39,8 +38,10 @@ const CreateRobot: React.FC = () => {
                         </div>
                     </Upload>
                 </Form.Item>
-                <Form.Item label={'validate'}>
-                    <Button>Create Robot</Button>
+                <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                    <Button type="primary" htmlType="submit">
+                        Create Robot
+                    </Button>
                 </Form.Item>
             </Form>
         </Card>

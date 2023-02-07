@@ -28,7 +28,7 @@ const formItemLayoutWithOutLabel = {
     },
 };
 
-const NewTournament: React.FC = () => {
+const CreateTournament: React.FC = () => {
     const onFinish = (values: any) => {
         console.log('Received values of form:', values);
     };
@@ -48,7 +48,7 @@ const NewTournament: React.FC = () => {
         <Card
             title="Create Tournament"
             bordered={false}
-            style={{ width: 500 }}
+            style={{ minWidth: 280 }}
             headStyle={{ backgroundColor: 'black', color: 'whitesmoke' }}
         >
             <Form
@@ -129,4 +129,4 @@ const NewTournament: React.FC = () => {
     );
 };
 
-export default NewTournament;
+export default CreateTournament;

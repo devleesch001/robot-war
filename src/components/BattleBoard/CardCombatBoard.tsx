@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Card, Divider, Col, Row } from 'antd';
 import { Battle, getListBattle } from '../../api/route';
+import { BattleLine } from './GridBattleBoard';
 
 const combats = [
     { id: 1, fighter: ['equipe1', 'equipe2'] }, //pour plus tard ajouter une images du robot
@@ -29,16 +30,14 @@ const CardCombatBoard: React.FC = () => {
         <>
             <Card
                 title="Board Fights"
-                bordered={false}
-                style={{ width: 500 }}
+                style={{ minWidth: 280 }}
                 headStyle={{ backgroundColor: 'black', color: 'whitesmoke' }}
             >
                 {combats.map((combat) => (
-                    <Row key={combat.id}>
-                        <Col xs={{ span: 12 }}>{combat.fighter.at(0)}</Col>
-                        <Col xs={{ span: 12 }}>{combat.fighter.at(1)}</Col>
-                        <Divider style={{ color: 'green' }}>vs</Divider>
-                    </Row>
+                    <>
+                        <BattleLine fighter1={combat.fighter[0]} fighter2={combat.fighter[1]} />
+                        <Divider style={{ color: 'green' }} />
+                    </>
                 ))}
             </Card>
         </>

@@ -35,6 +35,31 @@ const columns: ColumnsType<DataType> = [
     },
 ];
 
+interface BattleLineProps {
+    fighter1: string;
+    fighter2: string;
+}
+
+export const BattleLine: React.FC<BattleLineProps> = (props) => {
+    const { fighter1, fighter2 } = props;
+
+    return (
+        <Row gutter={[18, 18]} justify={'center'} style={{ textAlign: 'center' }}>
+            <Col span={8}>
+                <Typography.Text>{fighter1}</Typography.Text>
+            </Col>
+            <Col span={8}>
+                <Typography.Text strong type={'danger'}>
+                    vs
+                </Typography.Text>
+            </Col>
+            <Col span={8}>
+                <Typography.Text>{fighter2}</Typography.Text>
+            </Col>
+        </Row>
+    );
+};
+
 const GridCombatBoard: React.FC = () => {
     const [battleList, setbattlelist] = React.useState<Battle[]>([]);
 
@@ -53,23 +78,14 @@ const GridCombatBoard: React.FC = () => {
 
     return (
         <>
-            <Row gutter={[18, 18]} justify={'center'} style={{ textAlign: 'center' }}>
-                <Col span={8}>
-                    <Typography>fighter 1</Typography>
-                </Col>
-                <Col span={8}>
-                    <Typography.Title level={5}>vs</Typography.Title>
-                </Col>
-                <Col span={8}>
-                    <Typography>fighter 2</Typography>
-                </Col>
-            </Row>
+            <BattleLine fighter1={'test1'} fighter2={'test2'} />
             <Divider style={{ color: 'green' }}></Divider>
-            <Row gutter={[18, 18]}>
-                <Col span={8}>fighter 1</Col>
-                <Col span={8}>vs</Col>
-                <Col span={8}>fighter 2</Col>
-            </Row>
+            <BattleLine fighter1={'test1'} fighter2={'test2'} />
+            <Divider style={{ color: 'green' }}></Divider>
+            <BattleLine fighter1={'test1'} fighter2={'test2'} />
+            <Divider style={{ color: 'green' }}></Divider>
+            <BattleLine fighter1={'test1'} fighter2={'test2'} />
+            <Divider style={{ color: 'green' }}></Divider>
         </>
     );
 };

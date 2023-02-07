@@ -6,9 +6,10 @@ const { Header, Footer, Sider, Content } = Layout;
 
 import { red } from '@ant-design/colors';
 import CardCombatBoard from './BattleBoard/CardCombatBoard';
-import GridBattleBoard from './BattleBoard/GridBattleBoard';
+import CreateTournament from './GameMode/Tournament/CreateTournament';
+import CreateRobot from './Robot/CreateRobot';
 
-function Home() {
+const Admin = () => {
     return (
         <>
             <Menu
@@ -30,25 +31,24 @@ function Home() {
                     },
                 ]}
             />
-            {/*<Header style={headerStyle}>Header</Header>*/}
+
             <Layout>
                 <Content style={{ margin: 15 }}>
                     <Row gutter={[12, 12]} justify={'center'}>
                         <Col xs={24} md={12} xl={8} xxl={6}>
-                            <CardCombatBoard />
+                            <CreateRobot />
                         </Col>
                         <Col xs={24} md={12} xl={8} xxl={6}>
-                            <CardCombatBoard />
+                            <CreateTournament />
                         </Col>
                         <Col xs={24} md={12} xl={8} xxl={6}>
-                            <CardCombatBoard />
+                            <CreateRobot />
                         </Col>
                     </Row>
                 </Content>
             </Layout>
-            {/*<Footer style={footerStyle}>Footer</Footer>*/}
         </>
     );
-}
+};
 
-export default Home;
+export default Admin;
