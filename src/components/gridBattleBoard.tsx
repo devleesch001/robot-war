@@ -11,22 +11,32 @@ const combats = [
     {id: 4, fighter: ["equipe4","equipe2"]}
 ];
 
-const columns: ColumnsType<combat> = [
-    {
-        title: 'Name',
-        dataIndex: 'name',
-    },
-    {
-        title: 'Borrow',
-        dataIndex: 'borrow',
-    },
-    {
-        title: 'Repayment',
-        dataIndex: 'repayment',
-    },
-];
+interface DataType {
+    id: number;
+    team1: string;
+    team2: string;
+}
 
-const GridCombatBoard: React.FC = () => {
+const columns: ColumnsType<DataType> = [
+    {
+        title: 'Ordre Combat',
+        dataIndex: 'id',
+        key: 'id',
+        render: (text) => <a>{text}</a>,
+    },
+    {
+        title: 'Team 1',
+        dataIndex: 'team1',
+        key: 'team1',
+    },
+    {
+        title: 'Team 2',
+        dataIndex: 'team 2',
+        key: 'team 2',
+    }]
+
+
+    const GridCombatBoard: React.FC = () => {
     const [battleList, setbattlelist] = React.useState<Battle[]>([]);
 
     React.useEffect(() => {
@@ -45,23 +55,7 @@ const GridCombatBoard: React.FC = () => {
 
     return (
         <>
-            <Card title="Board Fights" bordered={false} style={{width: 500}}
-                  headStyle={{backgroundColor: "black", color: "whitesmoke"}}>
 
-                {
-                    combats.map(combat => (
-                        <Row>
-                            <Col xs={{span: 12, }} >
-                                {combat.fighter.at(0)}
-                            </Col>
-                            <Col xs={{span: 12, }} >
-                                {combat.fighter.at(1)}
-                            </Col>
-                            <Divider style={{color:"green"}}>vs</Divider>
-                        </Row>
-                    ))
-                }
-            </Card>
         </>
     )
 
