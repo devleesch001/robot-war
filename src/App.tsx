@@ -1,15 +1,18 @@
 import React from 'react';
 import './App.css';
-import CardCombatBoard from './components/BattleBord/cardCombatBoard';
-import GridBattleBoard from './components/BattleBord/gridBattleBoard';
-import NewTournament from './components/Modes de jeu /NewTournament/newTournament';
-import CreateRobot from './components/CreateRobot/CreateRobot';
+import NewTournament from './components/NewTournament/newTournament';
+import Home from './components/Home';
+
+import { Routes, Route } from 'react-router-dom';
 
 function App() {
     return (
-        <div className="App">
-            <NewTournament />
-        </div>
+        <Routes>
+            <Route path="/">
+                <Route index element={<Home />}></Route>
+                <Route path="/tournament" element={<NewTournament />} />
+            </Route>
+        </Routes>
     );
 }
 
