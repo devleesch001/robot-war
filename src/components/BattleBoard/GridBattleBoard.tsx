@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Card, Divider, Col, Row } from 'antd';
+import { Card, Divider, Col, Row, Table, Grid, Typography } from 'antd';
 import { Battle, getListBattle } from '../../api/route';
 import { ColumnsType } from 'antd/lib/table';
 
@@ -51,6 +51,26 @@ const GridCombatBoard: React.FC = () => {
         return () => clearInterval(interval);
     }, []);
 
-    return <></>;
+    return (
+        <>
+            <Row gutter={[18, 18]} justify={'center'} style={{ textAlign: 'center' }}>
+                <Col span={8}>
+                    <Typography>fighter 1</Typography>
+                </Col>
+                <Col span={8}>
+                    <Typography.Title level={5}>vs</Typography.Title>
+                </Col>
+                <Col span={8}>
+                    <Typography>fighter 2</Typography>
+                </Col>
+            </Row>
+            <Divider style={{ color: 'green' }}></Divider>
+            <Row gutter={[18, 18]}>
+                <Col span={8}>fighter 1</Col>
+                <Col span={8}>vs</Col>
+                <Col span={8}>fighter 2</Col>
+            </Row>
+        </>
+    );
 };
 export default GridCombatBoard;
