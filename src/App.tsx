@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import NewTournament from './components/NewTournament/newTournament';
+import NewTournament from './components/Modes de jeu /NewTournament/newTournament';
 import Home from './components/Home';
 
 import { Routes, Route } from 'react-router-dom';
