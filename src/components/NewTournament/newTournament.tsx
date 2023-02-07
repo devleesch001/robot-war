@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
 
@@ -20,14 +20,11 @@ const formItemLayoutWithOutLabel = {
     },
 };
 
-
-
 const NewTournament: React.FC = () =>{
-
     const onFinish = (values: any) => {
         console.log('Received values of form:', values);
     };
-    return(
+    return (
         <Form
             name="New_Tounament_form_item"
             {...formItemLayoutWithOutLabel}
@@ -97,7 +94,7 @@ const NewTournament: React.FC = () =>{
                 </Button>
             </Form.Item>
         </Form>
-    )
+    );
+};
 
-}
-export default NewTournament
+export default NewTournament;
