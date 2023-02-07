@@ -5,7 +5,7 @@ import Home from './components/Home';
 
 import { Routes, Route } from 'react-router-dom';
 
-function App() {
+const App = () => {
     return (
         <Routes>
             <Route path="/">
@@ -14,6 +14,6 @@ function App() {
             </Route>
         </Routes>
     );
-}
+};
 
 export default App;
