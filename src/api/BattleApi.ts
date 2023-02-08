@@ -9,15 +9,15 @@ export interface BattleInterface {
     fighters: RobotInterface[];
     win?: RobotInterface;
 
-    status: string;
+    status?: string;
 }
 
 export const getBattles = async () => {
-    const result = await axios.get<BattleInterface[]>(`${API_URL}/api/Battle`);
+    const result = await axios.get<BattleInterface[]>(`${API_URL}/api/battle`);
     return result.data;
 };
 
 export const addBattle = async (data: BattleInterface) => {
-    const result = await axios.post<BattleInterface>(`${API_URL}/api/Battle`, data);
+    const result = await axios.post<BattleInterface>(`${API_URL}/api/battle`, data);
     return result.data;
 };

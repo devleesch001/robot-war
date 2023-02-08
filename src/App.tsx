@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import CreateTournament from './components/GameMode/Tournament/CreateTournament';
+import CreateTournament from './components/Tournament/CreateTournament';
 import Home from './components/Home';
 
 import { Routes, Route } from 'react-router-dom';

@@ -5,8 +5,8 @@ import test from '../test.png';
 const { Content } = Layout;
 
 import { blue } from '@ant-design/colors';
-import CombatBoard from './BattleBoard/CombatBoard';
-import TournamentBoard from './BattleBoard/TournamentBoard';
+import CombatBoard from './Combat/CombatBoard';
+import TournamentBoard from './Tournament/TournamentBoard';
 import RobotsBoard from './Robot/RobotsBoard';
 
 function Home() {

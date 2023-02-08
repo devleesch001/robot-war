@@ -1,13 +1,13 @@
 import React from 'react';
-import { Col, Grid, Layout, Menu, Row, Typography } from 'antd';
+import { Col, Layout, Menu, Row, Typography } from 'antd';
 import test from '../test.png';
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Content } = Layout;
 
 import { red } from '@ant-design/colors';
-import CombatBoard from './BattleBoard/CombatBoard';
-import CreateTournament from './GameMode/Tournament/CreateTournament';
+import CreateTournament from './Tournament/CreateTournament';
 import CreateRobot from './Robot/CreateRobot';
+import CreateCombat from './Combat/CreateCombat';
 
 const Admin = () => {
     return (
@@ -17,6 +17,13 @@ const Admin = () => {
                 mode="horizontal"
                 items={[
                     {
+                        className: 'hider',
+                        label: <img src={test}></img>,
+                        key: '1',
+                        disabled: true,
+                        style: { cursor: 'default' },
+                    },
+                    {
                         label: <Typography.Title level={1}>Robot Wars</Typography.Title>,
                         key: 'mail',
                         disabled: true,
@@ -25,7 +32,7 @@ const Admin = () => {
                     {
                         className: 'hider',
                         label: <img src={test}></img>,
-                        key: 'test',
+                        key: '2',
                         disabled: true,
                         style: { cursor: 'default' },
                     },
@@ -42,7 +49,7 @@ const Admin = () => {
                             <CreateTournament />
                         </Col>
                         <Col xs={24} md={12} xl={8} xxl={6}>
-                            <CreateRobot />
+                            <CreateCombat />
                         </Col>
                     </Row>
                 </Content>

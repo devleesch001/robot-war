@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Card, Form, Input, Button, Upload, Row, Col, Typography, Divider } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import { Card, Button, Row, Col, Divider } from 'antd';
 import { useState } from 'react';
 import { getRobots, RobotInterface } from '../../api/RobotApi';
 
@@ -15,16 +14,6 @@ export const RobotLine: React.FC<RobotLineProps> = (props) => {
         <Row gutter={[18, 18]} justify={'start'} style={{ textAlign: 'center', verticalAlign: 'middle' }}>
             <Col span={8}>
                 <Button type="primary">{name}</Button>
-            </Col>
-            <Col span={8}>
-                <Typography.Text strong type={'warning'}>
-                    vs
-                </Typography.Text>
-            </Col>
-            <Col span={8}>
-                <Button type="primary" danger>
-                    <Button type="primary">{name}</Button>
-                </Button>
             </Col>
         </Row>
     );

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { MinusCircleOutlined, PlusOutlined, ApartmentOutlined } from '@ant-design/icons';
-import { Card, Button, Form, Select } from 'antd';
-
-const { Option } = Select;
+import React from 'react';
+import { Button, Card, Form, Select } from 'antd';
+import { getRobots, RobotInterface } from '../../api/RobotApi';
+import { addBattle } from '../../api/BattleApi';
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 
 const formItemLayout = {
     labelCol: {
@@ -15,55 +15,54 @@ const formItemLayout = {
     },
 };
 
-const combats = [
-    { id: 1, fighter: ['equipe1', 'equipe2'] }, //pour plus tard ajouter une images du robot
-    { id: 2, fighter: ['equipe4', 'equipe3'] },
-    { id: 3, fighter: ['equipe1', 'equipe3'] },
-    { id: 4, fighter: ['equipe4', 'equipe2'] },
-];
 const formItemLayoutWithOutLabel = {
     wrapperCol: {
         xs: { span: 24, offset: 0 },
         sm: { span: 20, offset: 4 },
     },
 };
+const CreateCombat = () => {
+    const [robots, setRobots] = React.useState<RobotInterface[]>([]);
+    const [robotsIdSelected, setRobotsIdSelected] = React.useState<string[]>([]);
 
-const CreateTournament: React.FC = () => {
+    React.useEffect(() => {
+        const interval = setInterval(() => {
+            getRobots().then((robots) => {
+                robots = robots.filter((robot) => !robotsIdSelected.includes(robot._id ?? ''));
+                setRobots(robots);
+            });
+        }, 1000);
+        return () => clearInterval(interval);
+    }, []);
+
     const onFinish = (values: any) => {
-        console.log('Received values of form:', values);
+        addBattle({ fighters: values.fighters }).then((r) => console.log(r));
     };
-    //TODO charger le select avec toutes les equipes disponible Bracket
 
-    const [teams, setTeams] = useState('');
-    const selectHandle = () => {
-        console.log('ok');
-    };
-    const CreateTournamentHandle = () => {
-        //TODO recuperer les equipe selectionner pour le tournoi
-        //TODO API TOURNOI POUR ENVOIE LINFO DU TOUNOI
-        //TODO CREATION DU TOURNOI AVEC LA BIBLIOTHECH TOURNOI
-    };
+    function selectHandle(value: string) {
+        robotsIdSelected.push(value);
+        setRobotsIdSelected(robotsIdSelected);
+    }
 
     return (
         <Card
-            title="Create Tournament"
+            title="Create Fights"
             bordered={false}
             style={{ minWidth: 280 }}
             headStyle={{ backgroundColor: 'black', color: 'whitesmoke' }}
         >
             <Form
-                name="New_Tounament_form_item"
-                {...formItemLayoutWithOutLabel}
+                name="new_combat_form_item"
+                wrapperCol={{ xs: { span: 24, offset: 0 }, sm: { span: 20, offset: 4 } }}
                 onFinish={onFinish}
-                style={{ maxWidth: 600 }}
             >
                 <Form.List
-                    name="names"
+                    name="fighters"
                     rules={[
                         {
                             validator: async (_, names) => {
-                                if (!names || names.length < 4) {
-                                    return Promise.reject(new Error('minimun 4 teams to create tournament'));
+                                if (!names || names.length < 2) {
+                                    return Promise.reject(new Error('minimun 2 teams to create combat'));
                                 }
                             },
                         },
@@ -90,10 +89,16 @@ const CreateTournament: React.FC = () => {
                                         ]}
                                         noStyle
                                     >
-                                        <Select placeholder="Select Teams" onClick={selectHandle} allowClear>
-                                            {combats.map((combat) => (
-                                                // eslint-disable-next-line react/jsx-key
-                                                <Option value="male">{combat.fighter.at(0)}</Option>
+                                        <Select
+                                            placeholder="Select Teams"
+                                            allowClear
+                                            style={{ width: '60%' }}
+                                            onSelect={selectHandle}
+                                        >
+                                            {robots.map((robot, index) => (
+                                                <Select.Option value={robot._id} key={index}>
+                                                    {robot.name}
+                                                </Select.Option>
                                             ))}
                                         </Select>
                                     </Form.Item>
@@ -120,7 +125,7 @@ const CreateTournament: React.FC = () => {
                     )}
                 </Form.List>
                 <Form.Item>
-                    <Button type="primary" htmlType="submit" onClick={CreateTournamentHandle}>
+                    <Button type="primary" htmlType="submit">
                         Create
                     </Button>
                 </Form.Item>
@@ -129,4 +134,4 @@ const CreateTournament: React.FC = () => {
     );
 };
 
-export default CreateTournament;
+export default CreateCombat;

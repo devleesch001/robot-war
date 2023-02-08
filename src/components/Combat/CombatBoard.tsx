@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
-import { Card, Divider, Col, Row, Button, Typography } from 'antd';
+import React from 'react';
+import { Card, Divider, Col, Row, Typography } from 'antd';
 import { BattleInterface, getBattles } from '../../api/BattleApi';
 import { RobotInterface } from '../../api/RobotApi';
 import { blue, yellow } from '@ant-design/colors';
 import Label from '../Element/Label';
-import { CrownFilled, BugFilled } from '@ant-design/icons';
+import { CrownFilled } from '@ant-design/icons';
 
 function isWinner(fighter: RobotInterface, battle: BattleInterface) {
     return battle.win === undefined ? battle.win : battle.win?._id === fighter._id;
