@@ -1,18 +1,31 @@
 import mongoose from 'mongoose';
 
 // Définir le schéma de données pour les combats
-const combatSchema = new mongoose.Schema(
+const tournoiSchema = new mongoose.Schema(
     {
-        fighters: [
+        name: {
+            type: String,
+            required: true,
+        },
+
+        robots: [
             {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'Robot',
+            },
+        ],
+
+        fights: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Combat',
             },
         ],
         win: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Robot',
         },
+
         status: {
             type: String,
             required: true,
@@ -24,4 +37,4 @@ const combatSchema = new mongoose.Schema(
 );
 
 // Créer un modèle à partir du schéma de données des combats
-export const Combat = mongoose.model('Combat', combatSchema);
+export const Tournoi = mongoose.model('Tournoi', tournoiSchema);

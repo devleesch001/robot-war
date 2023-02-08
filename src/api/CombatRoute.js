@@ -6,44 +6,52 @@ const router = Router();
 
 router.get('/', async (req, res) => {
     if (typeof req.query.id === 'string') {
-        const allCombat = await Combat.findById(req.query.id);
+        const allCombat = await Combat.findById(req.query.id).populate('fighters').populate('win');
         return res.status(200).json(allCombat);
     } else {
-        const allCombat = await Combat.find();
+        const allCombat = await Combat.find().populate('fighters').populate('win');
         return res.status(200).json(allCombat);
     }
 });
 
 router.post('/', async (req, res) => {
     console.log(req.body);
+    try {
+        const firstRobot = req.body.firstRobotId;
+        const secondRobot = req.body.secondRobotId;
 
-    const firstRobot = await Robot.findById(req.body.firstRobotId);
-    const secondRobot = await Robot.findById(req.body.secondRobotId);
+        const newCombat = new Combat({
+            fighters: [firstRobot, secondRobot],
+            status: 'WAITING',
+        });
 
-    if (!firstRobot || !secondRobot) {
-        return res.status(400).json({ message: "L'un des robots n'a pas été trouvé" });
+        await newCombat.save();
+        return res.status(200).json({ newCombat });
+    } catch (error) {
+        return res.status(500).json({ message: 'Internal Error' });
     }
-
-    const newCombat = new Combat({
-        fighters: [firstRobot._id, secondRobot._id],
-        win: null,
-    });
-
-    await newCombat.save();
-
-    return res.status(200).json({ newCombat });
 });
 
 router.patch('/', async (req, res) => {
-    const combat = await Combat.findById(req.body.id);
-    if (!combat) {
-        return res.status(404).json({ message: 'Combat introuvable' });
+    try {
+        const combat = await Combat.findById(req.body.id);
+
+        if (typeof req.body.win === 'string') {
+            combat.win = req.body.win;
+        }
+        if (req.body.status) {
+            combat.status = req.body.status;
+        }
+
+        console.log(req.body.status);
+        console.log(combat);
+
+        await combat.save();
+
+        return res.status(200).json({ message: 'Le combat a été mis à jour' });
+    } catch (error) {
+        return res.status(500).json({ message: 'Internal Error' });
     }
-
-    combat.win = req.body.win;
-    await combat.save();
-
-    return res.status(200).json({ message: 'Le combat a été mis à jour' });
 });
 
 export default router;

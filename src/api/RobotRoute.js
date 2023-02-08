@@ -18,19 +18,18 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    const existingRobot = await Robot.findOne({ name: req.body.name });
+    try {
+        const newRobot = new Robot({
+            name: req.body.name,
+        });
+        console.log(newRobot);
 
-    if (existingRobot) {
-        return res.status(400).json({ message: 'Le robot existe déjà' });
+        await newRobot.save();
+
+        return res.status(200).json(newRobot);
+    } catch (error) {
+        return res.status(500).json({ message: 'Internal Error' });
     }
-    const newRobot = new Robot({
-        name: req.body.name,
-    });
-    console.log(newRobot);
-
-    await newRobot.save();
-
-    return res.status(200).json(newRobot);
 });
 
 export default router;
