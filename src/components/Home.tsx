@@ -4,19 +4,24 @@ import test from '../test.png';
 
 const { Content } = Layout;
 
-import { red } from '@ant-design/colors';
+import { blue } from '@ant-design/colors';
 import CombatBoard from './BattleBoard/CombatBoard';
 import TournamentBoard from './BattleBoard/TournamentBoard';
+import RobotsBoard from './Robot/RobotsBoard';
 
 function Home() {
     return (
         <>
             <Menu
-                style={{ justifyContent: 'center', backgroundColor: red[5] }}
+                style={{ justifyContent: 'center', backgroundColor: blue[5] }}
                 mode="horizontal"
                 items={[
                     {
-                        label: <Typography.Title level={1}>Robot Wars</Typography.Title>,
+                        label: (
+                            <Typography.Title level={1} style={{ color: 'white' }}>
+                                Robot Wars
+                            </Typography.Title>
+                        ),
                         key: 'mail',
                         disabled: true,
                         style: { cursor: 'default' },
@@ -34,14 +39,14 @@ function Home() {
             <Layout>
                 <Content style={{ margin: 15 }}>
                     <Row gutter={[12, 12]} justify={'center'}>
-                        <Col xs={24} md={12} xl={8} xxl={6}>
+                        <Col xs={24} md={12} xl={12} xxl={8}>
                             <CombatBoard />
                         </Col>
                         <Col xs={24} md={12} xl={8} xxl={6}>
                             <TournamentBoard />
                         </Col>
                         <Col xs={24} md={12} xl={8} xxl={6}>
-                            <CombatBoard />
+                            <RobotsBoard />
                         </Col>
                     </Row>
                 </Content>

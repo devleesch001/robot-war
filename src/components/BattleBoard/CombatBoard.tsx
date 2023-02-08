@@ -1,53 +1,81 @@
 import React, { useEffect } from 'react';
 import { Card, Divider, Col, Row, Button, Typography } from 'antd';
-import { Battle, getListBattle } from '../../api/route';
+import { BattleInterface, getBattles } from '../../api/BattleApi';
+import { RobotInterface } from '../../api/RobotApi';
+import { blue, yellow } from '@ant-design/colors';
+import Label from '../Element/Label';
+import { CrownFilled, BugFilled } from '@ant-design/icons';
 
-const combats = [
-    { id: 1, fighter: ['equipe1', 'equipe2'] }, //pour plus tard ajouter une images du robot
-    { id: 2, fighter: ['equipe4', 'equipe3'] },
-    { id: 3, fighter: ['equipe1', 'equipe3'] },
-    { id: 4, fighter: ['equipe4', 'equipe2'] },
-];
+function isWinner(fighter: RobotInterface, battle: BattleInterface) {
+    return battle.win === undefined ? battle.win : battle.win?._id === fighter._id;
+}
 
 interface BattleLineProps {
-    fighter1: string;
-    fighter2: string;
+    battle: BattleInterface;
 }
 
 export const BattleLine: React.FC<BattleLineProps> = (props) => {
-    const { fighter1, fighter2 } = props;
+    const { battle } = props;
 
-    return (
-        <Row gutter={[18, 18]} justify={'center'} style={{ textAlign: 'center' }}>
+    return battle.fighters.length >= 2 ? (
+        <Row gutter={[18, 18]} style={{ textAlign: 'center', verticalAlign: 'middle' }}>
             <Col span={8}>
-                <Button type="primary">{fighter1}</Button>
+                <Row gutter={[18, 18]} justify={'start'}>
+                    <Label color={blue[5]} win={isWinner(battle.fighters[0], battle)}>
+                        <Typography.Text>{battle.fighters[0].name}</Typography.Text>
+                    </Label>
+                    {battle.win ? (
+                        battle.fighters[0]._id === battle.win._id ? (
+                            <CrownFilled style={{ color: yellow[5], fontSize: '20px', padding: 5 }} />
+                        ) : (
+                            <CrownFilled style={{ color: yellow[5], fontSize: '20px', padding: 5, opacity: 0 }} />
+                        )
+                    ) : (
+                        <CrownFilled style={{ color: yellow[5], fontSize: '20px', padding: 5, opacity: 0 }} />
+                    )}
+                </Row>
             </Col>
-            <Col span={8}>
-                <Typography.Text strong type={'warning'}>
+            <Col span={2}>
+                <Typography.Text strong type={'warning'} style={{ whiteSpace: 'nowrap' }}>
                     vs
                 </Typography.Text>
             </Col>
             <Col span={8}>
-                <Button type="primary" danger>
-                    {fighter2}
-                </Button>
+                <Row gutter={[18, 18]} justify={'end'}>
+                    {battle.win ? (
+                        battle.fighters[1]._id === battle.win._id ? (
+                            <CrownFilled style={{ color: yellow[5], fontSize: '20px', padding: 5 }} />
+                        ) : (
+                            <CrownFilled style={{ color: yellow[5], fontSize: '20px', padding: 5, opacity: 0 }} />
+                        )
+                    ) : (
+                        <CrownFilled style={{ color: yellow[5], fontSize: '20px', padding: 5, opacity: 0 }} />
+                    )}
+                    <Label color={yellow[5]} win={isWinner(battle.fighters[1], battle)}>
+                        <Typography.Text>{battle.fighters[1].name}</Typography.Text>
+                    </Label>
+                </Row>
+            </Col>
+            <Col span={2}>
+                <Divider type={'vertical'} style={{ height: '100%' }} />
+            </Col>
+            <Col span={4}>
+                <Typography.Text style={{ whiteSpace: 'nowrap' }}>{battle.status}</Typography.Text>
             </Col>
         </Row>
+    ) : (
+        <></>
     );
 };
 
 const CombatBoard: React.FC = () => {
-    const [battleList, setbattlelist] = React.useState<Battle[]>([]);
+    const [battles, setBattles] = React.useState<BattleInterface[]>([]);
 
     React.useEffect(() => {
         const interval = setInterval(() => {
-            getListBattle()
-                .then((battle) => {
-                    setbattlelist(battle);
-                })
-                .catch((err) => {
-                    setbattlelist([]);
-                });
+            getBattles().then((battle) => {
+                setBattles(battle);
+            });
         }, 1000);
         return () => clearInterval(interval);
     }, []);
@@ -55,12 +83,12 @@ const CombatBoard: React.FC = () => {
     return (
         <Card
             title="Board Fights"
-            style={{ minWidth: 280 }}
+            style={{ minWidth: 370 }}
             headStyle={{ backgroundColor: 'black', color: 'whitesmoke' }}
         >
-            {combats.map((combat) => (
-                <React.Fragment key={combat.id}>
-                    <BattleLine fighter1={combat.fighter[0]} fighter2={combat.fighter[1]} />
+            {battles.map((battle) => (
+                <React.Fragment key={battle._id}>
+                    <BattleLine battle={battle} />
                     <Divider style={{ color: 'green' }} />
                 </React.Fragment>
             ))}
