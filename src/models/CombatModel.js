@@ -13,9 +13,12 @@ const combatSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Robot',
         },
+        nextfight: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Combat',
+        },
         status: {
             type: String,
-            required: true,
         },
     },
     {

@@ -6,7 +6,10 @@ const router = Router();
 
 router.get('/', async (req, res) => {
     if (typeof req.query.id === 'string') {
-        const allCombat = await Combat.findById(req.query.id).populate('fighters').populate('win');
+        const allCombat = await Combat.findById(req.query.id)
+            .populate('fighters')
+            .populate('win')
+            .populate('nextfight');
         return res.status(200).json(allCombat);
     } else {
         const allCombat = await Combat.find().populate('fighters').populate('win');
@@ -14,18 +17,29 @@ router.get('/', async (req, res) => {
     }
 });
 
+export async function createCombat(listFighters, nextFight) {
+    if (nextFight === undefined) {
+        nextFight = null;
+    }
+
+    const newCombat = new Combat({
+        fighters: listFighters,
+        status: 'WAITING',
+        nextfight: nextFight,
+    });
+
+    console.log(newCombat);
+
+    await newCombat.save();
+
+    return newCombat;
+}
 router.post('/', async (req, res) => {
-    console.log(req.body);
     try {
-        const firstRobot = req.body.firstRobotId;
-        const secondRobot = req.body.secondRobotId;
+        const newCombat = createCombat(req.body.fighters, req.body.nextfight);
 
-        const newCombat = new Combat({
-            fighters: [firstRobot, secondRobot],
-            status: 'WAITING',
-        });
+        console.log(newCombat);
 
-        await newCombat.save();
         return res.status(200).json({ newCombat });
     } catch (error) {
         return res.status(500).json({ message: 'Internal Error' });

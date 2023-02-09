@@ -8,7 +8,7 @@ const tournoiSchema = new mongoose.Schema(
             required: true,
         },
 
-        robots: [
+        fighters: [
             {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'Robot',
