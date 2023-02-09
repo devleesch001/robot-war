@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MinusCircleOutlined, PlusOutlined, ApartmentOutlined } from '@ant-design/icons';
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { Card, Button, Form, Select } from 'antd';
 
 const { Option } = Select;
@@ -89,7 +89,12 @@ const CreateTournament: React.FC = () => {
                                         ]}
                                         noStyle
                                     >
-                                        <Select placeholder="Select Teams" onClick={selectHandle} allowClear>
+                                        <Select
+                                            placeholder="Select Teams"
+                                            onClick={selectHandle}
+                                            allowClear
+                                            style={{ width: '80%' }}
+                                        >
                                             {combats.map((combat) => (
                                                 // eslint-disable-next-line react/jsx-key
                                                 <Option value="male">{combat.fighter.at(0)}</Option>

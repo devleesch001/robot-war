@@ -68,7 +68,7 @@ export const BattleLine: React.FC<BattleLineProps> = (props) => {
     );
 };
 
-const CombatBoard: React.FC = () => {
+const FightBoard: React.FC = () => {
     const [battles, setBattles] = React.useState<BattleInterface[]>([]);
 
     React.useEffect(() => {
@@ -95,4 +95,4 @@ const CombatBoard: React.FC = () => {
         </Card>
     );
 };
-export default CombatBoard;
+export default FightBoard;

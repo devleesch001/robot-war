@@ -11,7 +11,7 @@ const CreateRobot: React.FC = () => {
 
     return (
         <Card
-            title="Board Fights"
+            title="Create Robot"
             bordered={false}
             style={{ minWidth: 280 }}
             headStyle={{ backgroundColor: 'black', color: 'whitesmoke' }}

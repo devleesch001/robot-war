@@ -7,7 +7,7 @@ const { Content } = Layout;
 import { red } from '@ant-design/colors';
 import CreateTournament from './Tournament/CreateTournament';
 import CreateRobot from './Robot/CreateRobot';
-import CreateCombat from './Combat/CreateCombat';
+import CreateFight from './Fight/CreateFight';
 
 const Admin = () => {
     return (
@@ -49,7 +49,7 @@ const Admin = () => {
                             <CreateTournament />
                         </Col>
                         <Col xs={24} md={12} xl={8} xxl={6}>
-                            <CreateCombat />
+                            <CreateFight />
                         </Col>
                     </Row>
                 </Content>

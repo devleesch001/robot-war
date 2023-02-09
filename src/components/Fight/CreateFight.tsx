@@ -21,7 +21,7 @@ const formItemLayoutWithOutLabel = {
         sm: { span: 20, offset: 4 },
     },
 };
-const CreateCombat = () => {
+const CreateFight = () => {
     const [robots, setRobots] = React.useState<RobotInterface[]>([]);
     const [robotsIdSelected, setRobotsIdSelected] = React.useState<string[]>([]);
 
@@ -134,4 +134,4 @@ const CreateCombat = () => {
     );
 };
 
-export default CreateCombat;
+export default CreateFight;
