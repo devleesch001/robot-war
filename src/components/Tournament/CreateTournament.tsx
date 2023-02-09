@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { Card, Button, Form, Select, notification } from 'antd';
+import { getRobots, RobotInterface } from '../../api/RobotApi';
 
 const { Option } = Select;
 
@@ -15,12 +16,6 @@ const formItemLayout = {
     },
 };
 
-const combats = [
-    { id: 1, fighter: ['equipe1', 'equipe2'] }, //pour plus tard ajouter une images du robot
-    { id: 2, fighter: ['equipe4', 'equipe3'] },
-    { id: 3, fighter: ['equipe1', 'equipe3'] },
-    { id: 4, fighter: ['equipe4', 'equipe2'] },
-];
 const formItemLayoutWithOutLabel = {
     wrapperCol: {
         xs: { span: 24, offset: 0 },
@@ -29,22 +24,25 @@ const formItemLayoutWithOutLabel = {
 };
 
 const CreateTournament: React.FC = () => {
+    const [form] = Form.useForm();
+
+    const [robots, setRobots] = React.useState<RobotInterface[]>([]);
+
+    React.useEffect(() => {
+        const interval = setInterval(() => {
+            getRobots().then((robots) => {
+                const selected = form.getFieldValue('fighters') ?? [];
+                robots = robots.filter((robot) => !selected.includes(robot._id ?? ''));
+                setRobots(robots);
+            });
+        }, 1000);
+        return () => clearInterval(interval);
+    }, []);
     const onFinish = (values: any) => {
         console.log('Received values of form:', values);
         notification.open({
             message: 'Tournament Created',
         });
-    };
-    //TODO charger le select avec toutes les equipes disponible Bracket
-
-    const [teams, setTeams] = useState('');
-    const selectHandle = () => {
-        console.log('ok');
-    };
-    const CreateTournamentHandle = () => {
-        //TODO recuperer les equipe selectionner pour le tournoi
-        //TODO API TOURNOI POUR ENVOIE LINFO DU TOUNOI
-        //TODO CREATION DU TOURNOI AVEC LA BIBLIOTHECH TOURNOI
     };
 
     return (
@@ -55,17 +53,18 @@ const CreateTournament: React.FC = () => {
             headStyle={{ backgroundColor: 'black', color: 'whitesmoke' }}
         >
             <Form
-                name="New_Tounament_form_item"
+                form={form}
+                name="new_tournament_form_item"
                 wrapperCol={{ xs: { span: 24, offset: 0 }, sm: { span: 20, offset: 4 } }}
                 onFinish={onFinish}
             >
                 <Form.List
-                    name="names"
+                    name="fighters"
                     rules={[
                         {
                             validator: async (_, names) => {
                                 if (!names || names.length < 4) {
-                                    return Promise.reject(new Error('minimun 4 teams to create tournament'));
+                                    return Promise.reject(new Error('minimum 4 teams to create tournament'));
                                 }
                             },
                         },
@@ -92,15 +91,11 @@ const CreateTournament: React.FC = () => {
                                         ]}
                                         noStyle
                                     >
-                                        <Select
-                                            placeholder="Select Teams"
-                                            onClick={selectHandle}
-                                            allowClear
-                                            style={{ width: '80%' }}
-                                        >
-                                            {combats.map((combat) => (
-                                                // eslint-disable-next-line react/jsx-key
-                                                <Option value="male">{combat.fighter.at(0)}</Option>
+                                        <Select placeholder="Select Teams" allowClear style={{ width: '60%' }}>
+                                            {robots.map((robot, index) => (
+                                                <Select.Option value={robot._id} key={index}>
+                                                    {robot.name}
+                                                </Select.Option>
                                             ))}
                                         </Select>
                                     </Form.Item>
@@ -127,7 +122,7 @@ const CreateTournament: React.FC = () => {
                     )}
                 </Form.List>
                 <Form.Item>
-                    <Button type="primary" htmlType="submit" onClick={CreateTournamentHandle}>
+                    <Button type="primary" htmlType="submit">
                         Create
                     </Button>
                 </Form.Item>

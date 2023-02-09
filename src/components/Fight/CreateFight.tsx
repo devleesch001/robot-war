@@ -65,7 +65,7 @@ const CreateFight = () => {
                         {
                             validator: async (_, names) => {
                                 if (!names || names.length < 2) {
-                                    return Promise.reject(new Error('minimun 2 teams to create combat'));
+                                    return Promise.reject(new Error('minimum 2 teams to create combat'));
                                 }
                             },
                         },

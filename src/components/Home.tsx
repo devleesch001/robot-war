@@ -13,7 +13,7 @@ function Home() {
     return (
         <>
             <Menu
-                style={{ justifyContent: 'center', backgroundColor: 'black' }}
+                style={{ justifyContent: 'center', backgroundColor: blue[5] }}
                 mode="horizontal"
                 items={[
                     {
