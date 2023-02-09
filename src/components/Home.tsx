@@ -22,14 +22,7 @@ function Home() {
                                 Robot Wars
                             </Typography.Title>
                         ),
-                        key: 'mail',
-                        disabled: true,
-                        style: { cursor: 'default' },
-                    },
-                    {
-                        className: 'hider',
-                        label: <img src={test}></img>,
-                        key: 'test',
+                        key: 'title',
                         disabled: true,
                         style: { cursor: 'default' },
                     },
@@ -39,7 +32,7 @@ function Home() {
             <Layout>
                 <Content style={{ margin: 15 }}>
                     <Row gutter={[12, 12]} justify={'center'}>
-                        <Col xs={24} md={12} xl={12} xxl={8}>
+                        <Col xs={24} md={24} xl={12} xxl={12}>
                             <FightBoard />
                         </Col>
                         <Col xs={24} md={12} xl={8} xxl={6}>
