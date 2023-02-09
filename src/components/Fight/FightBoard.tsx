@@ -1,9 +1,10 @@
 import React from 'react';
-import { Card, Divider, Row, Typography } from 'antd';
+import { Button, Card, Col, Divider, Row, Typography } from 'antd';
 import { BattleInterface, getBattles } from '../../api/BattleApi';
 import { RobotInterface } from '../../api/RobotApi';
-import { blue } from '@ant-design/colors';
+import { blue, yellow } from '@ant-design/colors';
 import LabelRobot, { WinPos } from '../Element/LabelRobot';
+import { CrownFilled, EyeFilled } from '@ant-design/icons';
 
 function isWinner(fighter: RobotInterface, battle: BattleInterface) {
     return battle.win === undefined ? battle.win : battle.win?._id === fighter._id;
@@ -19,14 +20,14 @@ export const BattleLine: React.FC<BattleLineProps> = (props) => {
     const labels = battle.fighters.map((fighter, index, array) => {
         // console.log(fighter);
         return (
-            <Row key={index}>
+            <Row key={index} style={{ padding: 5 }}>
                 <LabelRobot
                     color={blue[5]}
                     fighter={fighter}
                     battle={battle}
                     pos={index == 0 ? WinPos.END : array.length == index + 1 ? WinPos.START : WinPos.TWING}
                 >
-                    <Typography.Text>{fighter.name}</Typography.Text>
+                    <Typography.Text style={{ color: 'white' }}>{fighter.name}</Typography.Text>
                 </LabelRobot>
             </Row>
         );
@@ -45,8 +46,21 @@ export const BattleLine: React.FC<BattleLineProps> = (props) => {
     });
 
     return (
-        <Row gutter={[18, 18]} style={{ textAlign: 'center', verticalAlign: 'middle' }} justify={'space-between'}>
-            {lineElement.map((value) => value)}
+        <Row gutter={[18, 18]} style={{ textAlign: 'center', verticalAlign: 'middle' }} justify={'space-around'}>
+            <Col span={2} style={{ textAlign: 'center', verticalAlign: 'middle', paddingTop: 5 }}>
+                <Button type="default" shape="circle" style={{ paddingTop: 5 }}>
+                    <EyeFilled style={{ color: blue[5], fontSize: '20px' }} />
+                </Button>
+            </Col>
+            <Col span={16}>
+                <Row justify={'space-between'}>{lineElement.map((value) => value)}</Row>
+            </Col>
+            <Col span={2}>
+                <Divider type={'vertical'} style={{ height: '100%' }} />
+            </Col>
+            <Col span={4}>
+                <Typography.Text style={{ whiteSpace: 'nowrap' }}>{battle.status}</Typography.Text>
+            </Col>
 
             {/*<Col span={8}>*/}
             {/*    <Row gutter={[18, 18]} justify={'start'}>*/}
@@ -84,12 +98,6 @@ export const BattleLine: React.FC<BattleLineProps> = (props) => {
             {/*            <Typography.Text>{battle.fighters[1].name}</Typography.Text>*/}
             {/*        </Label>*/}
             {/*    </Row>*/}
-            {/*</Col>*/}
-            {/*<Col span={2}>*/}
-            {/*    <Divider type={'vertical'} style={{ height: '100%' }} />*/}
-            {/*</Col>*/}
-            {/*<Col span={4}>*/}
-            {/*    <Typography.Text style={{ whiteSpace: 'nowrap' }}>{battle.status}</Typography.Text>*/}
             {/*</Col>*/}
         </Row>
     );

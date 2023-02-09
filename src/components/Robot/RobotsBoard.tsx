@@ -12,9 +12,7 @@ export const RobotLine: React.FC<RobotLineProps> = (props) => {
 
     return (
         <Row gutter={[18, 18]} justify={'start'} style={{ textAlign: 'center', verticalAlign: 'middle' }}>
-            <Col span={8}>
-                <Button type="primary">{name}</Button>
-            </Col>
+            <Button type="primary">{name}</Button>
         </Row>
     );
 };

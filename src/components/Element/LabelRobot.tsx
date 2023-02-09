@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Row } from 'antd';
+import { Row } from 'antd';
 import { blue, yellow } from '@ant-design/colors';
 import Label from './Label';
 import { RobotInterface } from '../../api/RobotApi';

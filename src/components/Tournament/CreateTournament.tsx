@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-import { Card, Button, Form, Select } from 'antd';
+import { Card, Button, Form, Select, notification } from 'antd';
 
 const { Option } = Select;
 
@@ -31,6 +31,9 @@ const formItemLayoutWithOutLabel = {
 const CreateTournament: React.FC = () => {
     const onFinish = (values: any) => {
         console.log('Received values of form:', values);
+        notification.open({
+            message: 'Tournament Created',
+        });
     };
     //TODO charger le select avec toutes les equipes disponible Bracket
 

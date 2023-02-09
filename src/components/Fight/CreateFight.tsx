@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Card, Form, Select } from 'antd';
+import { Button, Card, Form, Select, notification } from 'antd';
 import { getRobots, RobotInterface } from '../../api/RobotApi';
 import { addBattle } from '../../api/BattleApi';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
@@ -22,13 +22,15 @@ const formItemLayoutWithOutLabel = {
     },
 };
 const CreateFight = () => {
+    const [form] = Form.useForm();
+
     const [robots, setRobots] = React.useState<RobotInterface[]>([]);
-    const [robotsIdSelected, setRobotsIdSelected] = React.useState<string[]>([]);
 
     React.useEffect(() => {
         const interval = setInterval(() => {
             getRobots().then((robots) => {
-                robots = robots.filter((robot) => !robotsIdSelected.includes(robot._id ?? ''));
+                const selected = form.getFieldValue('fighters') ?? [];
+                robots = robots.filter((robot) => !selected.includes(robot._id ?? ''));
                 setRobots(robots);
             });
         }, 1000);
@@ -36,13 +38,13 @@ const CreateFight = () => {
     }, []);
 
     const onFinish = (values: any) => {
-        addBattle({ fighters: values.fighters }).then((r) => console.log(r));
+        addBattle({ fighters: values.fighters }).then((r) => {
+            notification.open({
+                message: 'Fight Created',
+            });
+            form.resetFields();
+        });
     };
-
-    function selectHandle(value: string) {
-        robotsIdSelected.push(value);
-        setRobotsIdSelected(robotsIdSelected);
-    }
 
     return (
         <Card
@@ -52,6 +54,7 @@ const CreateFight = () => {
             headStyle={{ backgroundColor: 'black', color: 'whitesmoke' }}
         >
             <Form
+                form={form}
                 name="new_combat_form_item"
                 wrapperCol={{ xs: { span: 24, offset: 0 }, sm: { span: 20, offset: 4 } }}
                 onFinish={onFinish}
@@ -89,12 +92,7 @@ const CreateFight = () => {
                                         ]}
                                         noStyle
                                     >
-                                        <Select
-                                            placeholder="Select Teams"
-                                            allowClear
-                                            style={{ width: '60%' }}
-                                            onSelect={selectHandle}
-                                        >
+                                        <Select placeholder="Select Teams" allowClear style={{ width: '60%' }}>
                                             {robots.map((robot, index) => (
                                                 <Select.Option value={robot._id} key={index}>
                                                     {robot.name}
@@ -105,7 +103,9 @@ const CreateFight = () => {
                                     {fields.length > 1 ? (
                                         <MinusCircleOutlined
                                             className="dynamic-delete-button"
-                                            onClick={() => remove(field.name)}
+                                            onClick={() => {
+                                                remove(field.name);
+                                            }}
                                         />
                                     ) : null}
                                 </Form.Item>
