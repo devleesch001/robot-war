@@ -101,7 +101,7 @@ const FightBoard: React.FC = () => {
             {battles.map((battle) => (
                 <React.Fragment key={battle._id}>
                     <BattleLine battle={battle} />
-                    <Divider style={{ color: 'green' }} />
+                    <Divider />
                 </React.Fragment>
             ))}
         </Card>
