@@ -1,0 +1,21 @@
+_id: req_65c5af9ace014d39a2613ac255f1b90e
+type: Request
+parentId: wrk_9685551c8f90420f914a9e0db470a46e
+modified: 1675846810455
+created: 1675845289555
+url: "{{ _.API_URL }}/api/robot"
+name: get robots
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1675845289555
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

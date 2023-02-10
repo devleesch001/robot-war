@@ -1,0 +1,14 @@
+_id: env_2e29a9a1747e425c91c0645decd5e912
+type: Environment
+parentId: env_aadf8d83e3966e97750dd1d18bd5ca4382858e20
+modified: 1676024212758
+created: 1675845339951
+name: DEV_PIERRE
+data:
+  API_URL: http://10.3.2.59:3000
+dataPropertyOrder:
+  "&":
+    - API_URL
+color: null
+isPrivate: false
+metaSortKey: 1675845339951
