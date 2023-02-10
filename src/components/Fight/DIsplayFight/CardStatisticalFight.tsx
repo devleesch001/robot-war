@@ -1,5 +1,6 @@
 import React from 'react';
-import { Card, Row, Col, Typography, Divider } from 'antd';
+import { Card, Row, Col, Divider, Typography } from 'antd';
+
 import { RobotInterface } from '../../../api/RobotApi';
 
 import MediaPlayer from './MediaPlayer';
@@ -7,8 +8,6 @@ import MediaPlayer from './MediaPlayer';
 // interface TeamCardProps {
 //     fighters: RobotInterface[];
 // }
-
-const { Title } = Typography;
 
 // Rappeller du bareme de point
 // 4/victoire
@@ -24,7 +23,7 @@ function nbDraw() {
 }
 
 function nblooses() {
-    //Todo récuperer lenb de defaite
+    //Todo récuperer le nb de defaite
 }
 
 const Card1vs1: React.FC = () => {
@@ -34,23 +33,33 @@ const Card1vs1: React.FC = () => {
         <Card title="Stats" style={{ minWidth: 370 }} headStyle={{ backgroundColor: 'black', color: 'whitesmoke' }}>
             <Row gutter={16}>
                 <Col span={12}>
-                    <Title level={4}>{}</Title>
+                    <Typography.Title level={4}>{}</Typography.Title>
                     <p>Team: {}</p>
+                    <Divider />
                     <p>Wins: {}</p>
+                    <Divider />
                     <p>Draw: {}</p>
+                    <Divider />
                     <p>Losses: {}</p>
+                    <Divider />
                     <p>Rancking: {}</p>
+                    <Divider />
                     <p>Score: {}</p>
                     <Divider type={'vertical'} dashed={false} />
                 </Col>
 
                 <Col span={12}>
-                    <Title level={4}>{}</Title>
+                    <Typography.Title level={4}>{}</Typography.Title>
                     <p>Team: {}</p>
+                    <Divider />
                     <p>Wins:{}</p>
+                    <Divider />
                     <p>Draw: {}</p>
+                    <Divider />
                     <p>Losses: {}</p>
+                    <Divider />
                     <p>Rancking: {}</p>
+                    <Divider />
                     <p>Score: {}</p>
                 </Col>
             </Row>

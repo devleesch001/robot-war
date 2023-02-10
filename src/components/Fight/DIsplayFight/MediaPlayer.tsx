@@ -1,23 +1,12 @@
 import React, { useState } from 'react';
-import { Modal, Button, Spin, Card } from 'antd';
+import { Spin, Card } from 'antd';
 
 interface Props {
     mediaSrc: string;
 }
 
 const MediaPlayer: React.FC<Props> = (props) => {
-    const [visible, setVisible] = useState(false);
     const [loading, setLoading] = useState(false);
-
-    const showModal = () => {
-        setVisible(true);
-        setLoading(true);
-    };
-
-    const handleCancel = () => {
-        setVisible(false);
-    };
-
     const handleLoad = () => {
         setLoading(false);
     };

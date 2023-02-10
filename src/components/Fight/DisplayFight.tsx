@@ -11,10 +11,14 @@ const DisplayFight: React.FC = () => {
                     <MediaPlayer mediaSrc={'https://youtu.be/mQRcaotzcGs'} />
                 </Col>
             </Row>
-
             <Row justify={'center'}>
                 <Col span={8}>
                     <CardStatisticalFight />
+                </Col>
+            </Row>
+            <Row justify={'center'}>
+                <Col span={8}>
+                    <RanckingCard />
                 </Col>
             </Row>
         </>
