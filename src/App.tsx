@@ -8,7 +8,7 @@ import Admin from './components/Admin';
 
 import { ConfigProvider } from 'antd';
 //TEST
-import TimerFight from './components/Element/Timer';
+import Timerfight from './components/Element/Timer';
 import CardStatisticalFight from './components/Fight/DIsplayFight/CardStatisticalFight';
 import MediaPlayer from './components/Fight/DIsplayFight/MediaPlayer';
 
@@ -29,7 +29,7 @@ const App = () => {
                     <Route index element={<Home />}></Route>
                     <Route path="/tournament" element={<CreateTournament />} />
                     <Route path="/admin/back-office" element={<Admin />} />
-                    <Route path="/Timer" element={<TimerFight />} />
+                    <Route path="/Timer" element={<Timerfight />} />
                     <Route
                         path="/media"
                         element={

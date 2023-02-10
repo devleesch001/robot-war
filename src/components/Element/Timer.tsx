@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from 'antd';
 
-function Time() {
+function Timerfight() {
     const [isActive, setIsActive] = useState(false);
     const [isPaused, setIsPaused] = useState(true);
     const [time, setTime] = useState(0);
@@ -45,4 +45,4 @@ function Time() {
     );
 }
 
-export default Time;
+export default Timerfight;
