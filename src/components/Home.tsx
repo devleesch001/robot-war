@@ -1,10 +1,6 @@
 import React from 'react';
 import { Col, Layout, Menu, Row, Typography } from 'antd';
-import test from '../test.png';
-
 const { Content } = Layout;
-
-import { blue } from '@ant-design/colors';
 import FightBoard from './Fight/FightBoard';
 import TournamentBoard from './Tournament/TournamentBoard';
 import RobotsBoard from './Robot/RobotsBoard';
@@ -28,7 +24,6 @@ function Home() {
                     },
                 ]}
             />
-            {/*<Header style={headerStyle}>Header</Header>*/}
             <Layout>
                 <Content style={{ margin: 15 }}>
                     <Row gutter={[12, 12]} justify={'center'}>
