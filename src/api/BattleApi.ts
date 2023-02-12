@@ -17,7 +17,24 @@ export const getBattles = async () => {
     return result.data;
 };
 
+export const getBattle = async (id: string) => {
+    const result = await axios.get<BattleInterface[]>(`${API_URL}/api/battle`, { params: { _id: id } });
+    return result.data[0];
+};
+
 export const addBattle = async (data: BattleInterface) => {
     const result = await axios.post<BattleInterface>(`${API_URL}/api/battle`, data);
+    return result.data;
+};
+
+export interface BattleUpdateInterface {
+    _id: string;
+    fighters: RobotInterface[];
+    win?: RobotInterface;
+
+    status?: string;
+}
+export const updateBattle = async (data: BattleUpdateInterface) => {
+    const result = await axios.patch<BattleInterface>(`${API_URL}/api/battle`, data);
     return result.data;
 };

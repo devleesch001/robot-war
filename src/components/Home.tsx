@@ -9,7 +9,7 @@ import FightBoard from './Fight/FightBoard';
 import TournamentBoard from './Tournament/TournamentBoard';
 import RobotsBoard from './Robot/RobotsBoard';
 
-export function Home() {
+function Home() {
     return (
         <>
             <Menu
@@ -47,3 +47,5 @@ export function Home() {
         </>
     );
 }
+
+export default Home;
