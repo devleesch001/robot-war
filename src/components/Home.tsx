@@ -1,10 +1,6 @@
 import React from 'react';
 import { Col, Layout, Menu, Row, Typography } from 'antd';
-import test from '../test.png';
-
 const { Content } = Layout;
-
-import { blue } from '@ant-design/colors';
 import FightBoard from './Fight/FightBoard';
 import TournamentBoard from './Tournament/TournamentBoard';
 import RobotsBoard from './Robot/RobotsBoard';

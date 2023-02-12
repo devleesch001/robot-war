@@ -1,33 +1,60 @@
 import React from 'react';
-import { Card, List, Typography } from 'antd';
+import { Card, Table } from 'antd';
 
-interface Team {
-    name: string;
-    wins: number;
-    losses: number;
-}
+const dataSource = [
+    {
+        Position: '1',
+        Teams: 'ROBOT2',
+        Fight: '5',
+        Win: '5',
+        Draw: '0',
+        Loose: '0',
+        Point: '20',
+    },
+];
 
-interface Props {
-    teams: Team[];
-}
+const columns = [
+    {
+        title: 'Position',
+        dataIndex: 'Position',
+        key: 'Position',
+    },
+    {
+        title: 'Teams',
+        dataIndex: 'Teams',
+        key: 'Teams',
+    },
+    {
+        title: 'Fight',
+        dataIndex: 'Fight',
+        key: 'Fight',
+    },
+    {
+        title: 'Win',
+        dataIndex: 'Win',
+        key: 'Win',
+    },
+    {
+        title: 'Draw',
+        dataIndex: 'Draw',
+        key: 'Draw',
+    },
+    {
+        title: 'Loose',
+        dataIndex: 'Loose',
+        key: 'Loose',
+    },
+    {
+        title: 'Point',
+        dataIndex: 'Point',
+        key: 'Point',
+    },
+];
 
-const { Title } = Typography;
-
-const RanckingCard: React.FC<Props> = (props) => {
+const RanckingCard: React.FC = (props) => {
     return (
-        <Card>
-            <Title level={3}>Standings</Title>
-            <List
-                dataSource={props.teams}
-                renderItem={(team) => (
-                    <List.Item>
-                        <Typography.Text strong>{team.name}</Typography.Text>
-                        <Typography.Text type="secondary">
-                            Wins: {team.wins} Losses: {team.losses}
-                        </Typography.Text>
-                    </List.Item>
-                )}
-            />
+        <Card title="Ranking" style={{ minWidth: 370 }} headStyle={{ backgroundColor: 'black', color: 'whitesmoke' }}>
+            <Table columns={columns} dataSource={dataSource} />;
         </Card>
     );
 };

@@ -144,7 +144,7 @@ const FightBoard: React.FC = () => {
             {battles.map((battle) => (
                 <React.Fragment key={battle._id}>
                     <BattleLine battle={battle} admin={true} handleEdit={() => edit(battle)} />
-                    <Divider style={{ color: 'green' }} />
+                    <Divider />
                 </React.Fragment>
             ))}
             <Modal title="Update Fight" open={isModalOpen} onCancel={handleCancel} footer={[]}>
