@@ -15,7 +15,6 @@ router.get('/', async (req, res) => {
     } else if (typeof req.query.idrobotstat === 'string') {
         let compteurWin = 0;
         const allCombat = await Combat.find().populate('fighters').populate('win').populate('nextfight');
-
         allCombat.forEach(function (combat) {
             if (combat.fighters.find((e) => e._id.toString() === req.query.idrobotstat)) {
                 if (combat.win == null) {

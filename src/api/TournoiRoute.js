@@ -26,13 +26,11 @@ router.get('/', async (req, res) => {
 });
 
 async function createCombatsTournoi(combat, etage, newTournoi) {
-    console.log('999999999998');
     // Crer une liste de combat
     if (etage <= 0) {
         // Remplire les joueurs dans le tableau
         return null;
     } else if (combat == null) {
-        console.log('11111111111');
         combat = await createCombat([], null, null);
         console.log(combat);
         newTournoi.fights.push(combat);
@@ -40,10 +38,8 @@ async function createCombatsTournoi(combat, etage, newTournoi) {
     } else {
         let name = null;
         if (etage - 1 == 0) {
-            console.log('Combat initial');
             name = 'INITMATCH';
         }
-        console.log('11111111111');
         const combatFils1 = await createCombat([], combat, name);
         newTournoi.fights.push(combatFils1);
         const combatFils2 = await createCombat([], combat, name);
@@ -51,6 +47,25 @@ async function createCombatsTournoi(combat, etage, newTournoi) {
         await createCombatsTournoi(combatFils1, etage - 1, newTournoi);
         await createCombatsTournoi(combatFils2, etage - 1, newTournoi);
     }
+}
+
+async function addRobotInCombatsTournoi(newTournoi) {
+    let listFighters = newTournoi.fighters;
+    newTournoi.fights.forEach(function (combat, index) {
+        if (combat.name == 'INITMATCH') {
+            combat.fighters = [listFighters[0], listFighters[1]];
+            listFighters.splice(0, 2);
+        }
+    });
+    console.log(newTournoi);
+}
+
+function findNumberSteps(totalPlayers) {
+    let numberSteps = 0;
+    while (Math.pow(2, numberSteps) < totalPlayers) {
+        numberSteps++;
+    }
+    return numberSteps;
 }
 
 router.post('/', async (req, res) => {
@@ -87,16 +102,18 @@ router.post('/', async (req, res) => {
         //     newRobots = robots.slice(i, i + 2);
         // }
 
-        console.log(robots);
-
-        const newTournoi = new Tournoi({
+        const newTournoi = await new Tournoi({
             name: 'SALUT',
             fighters: robots,
             status: 'WAITING',
             fights: [],
         });
 
-        await createCombatsTournoi(null, 2, newTournoi);
+        const numberSteps = findNumberSteps(robots.length);
+
+        await createCombatsTournoi(null, numberSteps, newTournoi);
+
+        await addRobotInCombatsTournoi(newTournoi);
 
         await newTournoi.save();
 
