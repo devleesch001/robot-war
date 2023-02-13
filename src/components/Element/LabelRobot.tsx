@@ -55,7 +55,7 @@ const LabelRobot: React.FC<React.PropsWithChildren<LabelRobotProps>> = (props) =
                 : pos === WinPos.TWING && (
                       <CrownFilled style={{ color: yellow[5], fontSize: '20px', padding: 5, opacity: 0 }} />
                   )}
-            <Label color={blue[5]} win={win}>
+            <Label color={color} win={win}>
                 {children}
             </Label>
             {(pos === WinPos.END || pos === WinPos.TWING) && winElment}
