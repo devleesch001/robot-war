@@ -4,6 +4,7 @@ const { Content } = Layout;
 import FightBoard from './Fight/FightBoard';
 import TournamentBoard from './Tournament/TournamentBoard';
 import RobotsBoard from './Robot/RobotsBoard';
+import { blue } from '@ant-design/colors';
 
 function Home() {
     return (

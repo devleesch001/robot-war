@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { BattleInterface, getBattle } from '../../api/BattleApi';
 import { red } from '@ant-design/colors';
 import TimerFight from '../Element/Timer';
+import { getRobots } from '../../api/RobotApi';
 
 type DisplayFightParams = {
     fightId: string;
@@ -23,13 +24,19 @@ const DisplayFight: React.FC<DisplayFightProps> = (props) => {
     const { isAdmin } = props;
 
     const [fight, setFight] = useState<BattleInterface | null>(null);
+    // console.log(fight);
 
     useEffect(() => {
-        getBattle(fightId ?? '')
-            .then((battle) => {
-                setFight(battle);
-            })
-            .catch((err) => console.log(err));
+        const interval = setInterval(() => {
+            if (fightId) {
+                getBattle(fightId)
+                    .then((battle) => {
+                        setFight(battle);
+                    })
+                    .catch((err) => console.log(err));
+            }
+        }, 1000);
+        return () => clearInterval(interval);
     }, []);
 
     return (
@@ -57,7 +64,7 @@ const DisplayFight: React.FC<DisplayFightProps> = (props) => {
                             <MediaPlayer mediaSrc={'https://youtu.be/mQRcaotzcGs'} />
                         </Col>
                         <Col span={6}>
-                            <TimerFight fight={fight}></TimerFight>
+                            <TimerFight fight={fight} isAdmin={isAdmin}></TimerFight>
                         </Col>
                     </Row>
                     <Row gutter={[16, 16]} justify={'center'}>
