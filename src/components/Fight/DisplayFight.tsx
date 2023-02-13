@@ -6,6 +6,8 @@ import RanckingCard from './DIsplayFight/RanckingCard';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { BattleInterface, getBattle } from '../../api/BattleApi';
+import { red } from '@ant-design/colors';
+import TimerFight from '../Element/Timer';
 
 type DisplayFightParams = {
     fightId: string;
@@ -33,7 +35,7 @@ const DisplayFight: React.FC<DisplayFightProps> = (props) => {
     return (
         <>
             <Menu
-                style={{ justifyContent: 'center', backgroundColor: 'black' }}
+                style={{ justifyContent: 'center', backgroundColor: isAdmin ? red[5] : 'black' }}
                 mode="horizontal"
                 items={[
                     {
@@ -50,9 +52,12 @@ const DisplayFight: React.FC<DisplayFightProps> = (props) => {
             />
             {fight && (
                 <>
-                    <Row gutter={16} justify={'center'}>
-                        <Col span={18}>
+                    <Row gutter={16} justify={'center'} style={{ alignItems: 'center' }}>
+                        <Col span={14}>
                             <MediaPlayer mediaSrc={'https://youtu.be/mQRcaotzcGs'} />
+                        </Col>
+                        <Col span={6}>
+                            <TimerFight fight={fight}></TimerFight>
                         </Col>
                     </Row>
                     <Row gutter={[16, 16]} justify={'center'}>
