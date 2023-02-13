@@ -105,7 +105,7 @@ const FightBoard: React.FC = () => {
     React.useEffect(() => {
         const interval = setInterval(() => {
             getBattles().then((battles) => {
-                setBattles(battles.filter((element) => element?.fighters));
+                setBattles(battles.filter((element) => element?.fighters && element.fighters.length >= 2));
             });
         }, 1000);
         return () => clearInterval(interval);

@@ -10,6 +10,8 @@ export interface BattleInterface {
     win?: RobotInterface;
 
     status?: string;
+    startedAt?: Date;
+    duration?: number;
 }
 
 export const getBattles = async () => {
@@ -18,8 +20,8 @@ export const getBattles = async () => {
 };
 
 export const getBattle = async (id: string) => {
-    const result = await axios.get<BattleInterface[]>(`${API_URL}/api/battle`, { params: { _id: id } });
-    return result.data[0];
+    const result = await axios.get<BattleInterface>(`${API_URL}/api/battle`, { params: { id: id } });
+    return result.data;
 };
 
 export const addBattle = async (data: BattleInterface) => {
@@ -28,11 +30,13 @@ export const addBattle = async (data: BattleInterface) => {
 };
 
 export interface BattleUpdateInterface {
-    _id: string;
-    fighters: RobotInterface[];
+    id: string;
+    fighters?: RobotInterface[];
     win?: RobotInterface;
 
     status?: string;
+    startedAt?: Date;
+    duration?: number;
 }
 export const updateBattle = async (data: BattleUpdateInterface) => {
     const result = await axios.patch<BattleInterface>(`${API_URL}/api/battle`, data);
