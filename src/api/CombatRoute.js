@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import { Combat } from '../models/CombatModel.js';
-import { Robot } from '../models/RobotModel.js';
 
 const router = Router();
 
@@ -66,6 +65,15 @@ router.patch('/', async (req, res) => {
         if (typeof req.body.win === 'string' || req.body.win === null) {
             combat.win = req.body.win;
         }
+
+        if (typeof req.body.duration === 'number') {
+            combat.duration = req.body.duration;
+        }
+
+        if (req.body.startedAt instanceof Date || req.body.startedAt === null) {
+            combat.startedAt = req.body.startedAt;
+        }
+
         if (req.body.status) {
             combat.status = req.body.status;
         }

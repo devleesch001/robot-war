@@ -23,6 +23,12 @@ const combatSchema = new mongoose.Schema(
         status: {
             type: String,
         },
+        startedAt: {
+            type: Date,
+        },
+        duration: {
+            type: Number,
+        },
     },
     {
         timestamps: true,
