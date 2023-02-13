@@ -54,7 +54,7 @@ const columns = [
 const RanckingCard: React.FC = (props) => {
     return (
         <Card title="Ranking" style={{ minWidth: 370 }} headStyle={{ backgroundColor: 'black', color: 'whitesmoke' }}>
-            <Table columns={columns} dataSource={dataSource} />;
+            <Table columns={columns} dataSource={dataSource} />
         </Card>
     );
 };
