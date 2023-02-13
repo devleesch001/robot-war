@@ -30,18 +30,12 @@ router.get('/', async (req, res) => {
 });
 
 export async function createCombat(listFighters, nextFight, name) {
-    if (nextFight === undefined) {
-        nextFight = null;
-    }
-
     const newCombat = new Combat({
         fighters: listFighters,
         status: 'WAITING',
         nextfight: nextFight,
         name: name,
     });
-
-    console.log(newCombat);
 
     await newCombat.save();
 
@@ -50,8 +44,6 @@ export async function createCombat(listFighters, nextFight, name) {
 router.post('/', async (req, res) => {
     try {
         const newCombat = await createCombat(req.body.fighters, req.body.nextfight, null);
-
-        console.log(newCombat);
 
         return res.status(200).json({ newCombat });
     } catch (error) {
@@ -69,9 +61,6 @@ router.patch('/', async (req, res) => {
         if (req.body.status) {
             combat.status = req.body.status;
         }
-
-        console.log(req.body.status);
-        console.log(combat);
 
         await combat.save();
 
