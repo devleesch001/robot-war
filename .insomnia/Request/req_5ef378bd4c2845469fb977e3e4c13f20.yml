@@ -1,0 +1,21 @@
+_id: req_5ef378bd4c2845469fb977e3e4c13f20
+type: Request
+parentId: wrk_9685551c8f90420f914a9e0db470a46e
+modified: 1675848414188
+created: 1675846800334
+url: "{{ _.API_URL }}/api/battle"
+name: get battles
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1675846800334
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
