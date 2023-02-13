@@ -32,7 +32,7 @@ export const addBattle = async (data: BattleInterface) => {
 export interface BattleUpdateInterface {
     id: string;
     fighters?: RobotInterface[];
-    win?: RobotInterface;
+    win?: string;
 
     status?: string;
     startedAt?: Date;

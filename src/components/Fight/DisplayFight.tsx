@@ -9,6 +9,7 @@ import { BattleInterface, getBattle } from '../../api/BattleApi';
 import { red } from '@ant-design/colors';
 import TimerFight from '../Element/Timer';
 import { getRobots } from '../../api/RobotApi';
+import Winner from './Winner';
 
 type DisplayFightParams = {
     fightId: string;
@@ -64,7 +65,8 @@ const DisplayFight: React.FC<DisplayFightProps> = (props) => {
                             <MediaPlayer mediaSrc={'https://youtu.be/mQRcaotzcGs'} />
                         </Col>
                         <Col span={6}>
-                            <TimerFight fight={fight} isAdmin={isAdmin}></TimerFight>
+                            <TimerFight fight={fight} isAdmin={isAdmin} />
+                            <Winner fight={fight} />
                         </Col>
                     </Row>
                     <Row gutter={[16, 16]} justify={'center'}>
