@@ -8,13 +8,19 @@ const router = Router();
 
 router.get('/', async (req, res) => {
     if (typeof req.query.id === 'string') {
-        const allTournois = await Combat.findById(req.query.id).populate('fighters').populate('win');
+        const allTournois = await Tournoi.findById(req.query.id)
+            .populate('fighters')
+            .populate('fights')
+            .populate('win');
         return res.status(200).json(allTournois);
     } else if (typeof req.query.name === 'string') {
-        const allTournois = await Robot.findOne({ name: req.query.name });
+        const allTournois = await Tournoi.findOne({ name: req.query.name })
+            .populate('fighters')
+            .populate('fights')
+            .populate('win');
         return res.status(200).json(allTournois);
     } else {
-        const allTournois = await Combat.find().populate('robots').populate('fights').populate('win');
+        const allTournois = await Tournoi.find().populate('fighters').populate('fights').populate('win');
         return res.status(200).json(allTournois);
     }
 });
@@ -23,18 +29,24 @@ async function createCombatsTournoi(combat, etage, newTournoi) {
     console.log('999999999998');
     // Crer une liste de combat
     if (etage <= 0) {
+        // Remplire les joueurs dans le tableau
         return null;
     } else if (combat == null) {
-        console.log('8888888888888888888888888');
-        combat = await createCombat([], null);
+        console.log('11111111111');
+        combat = await createCombat([], null, null);
         console.log(combat);
         newTournoi.fights.push(combat);
-        console.log('254285221558');
         await createCombatsTournoi(combat, etage - 1, newTournoi);
     } else {
-        const combatFils1 = await createCombat([], combat);
+        let name = null;
+        if (etage - 1 == 0) {
+            console.log('Combat initial');
+            name = 'INITMATCH';
+        }
+        console.log('11111111111');
+        const combatFils1 = await createCombat([], combat, name);
         newTournoi.fights.push(combatFils1);
-        const combatFils2 = await createCombat([], combat);
+        const combatFils2 = await createCombat([], combat, name);
         newTournoi.fights.push(combatFils2);
         await createCombatsTournoi(combatFils1, etage - 1, newTournoi);
         await createCombatsTournoi(combatFils2, etage - 1, newTournoi);
@@ -84,10 +96,7 @@ router.post('/', async (req, res) => {
             fights: [],
         });
 
-        console.log('qsdfghsffeffefefefefef');
-
-        await createCombatsTournoi(null, 3, newTournoi);
-        console.log('afaffafffa');
+        await createCombatsTournoi(null, 2, newTournoi);
 
         await newTournoi.save();
 

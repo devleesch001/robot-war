@@ -11,13 +11,25 @@ router.get('/', async (req, res) => {
             .populate('win')
             .populate('nextfight');
         return res.status(200).json(allCombat);
+    } else if (typeof req.query.idrobot === 'string') {
+        const combatRobotWin = [];
+
+        const allCombat = await Combat.find().populate('fighters').populate('win').populate('nextfight');
+
+        allCombat.forEach(function (combat) {
+            if (combat.fighters.find((e) => e._id.toString() === req.query.idrobot)) {
+                combatRobotWin.push(combat);
+            }
+        });
+
+        return res.status(200).json(combatRobotWin);
     } else {
-        const allCombat = await Combat.find().populate('fighters').populate('win');
+        const allCombat = await Combat.find().populate('fighters').populate('win').populate('nextfight');
         return res.status(200).json(allCombat);
     }
 });
 
-export async function createCombat(listFighters, nextFight) {
+export async function createCombat(listFighters, nextFight, name) {
     if (nextFight === undefined) {
         nextFight = null;
     }
@@ -26,6 +38,7 @@ export async function createCombat(listFighters, nextFight) {
         fighters: listFighters,
         status: 'WAITING',
         nextfight: nextFight,
+        name: name,
     });
 
     console.log(newCombat);
@@ -36,7 +49,7 @@ export async function createCombat(listFighters, nextFight) {
 }
 router.post('/', async (req, res) => {
     try {
-        const newCombat = createCombat(req.body.fighters, req.body.nextfight);
+        const newCombat = await createCombat(req.body.fighters, req.body.nextfight, null);
 
         console.log(newCombat);
 
@@ -50,7 +63,7 @@ router.patch('/', async (req, res) => {
     try {
         const combat = await Combat.findById(req.body.id);
 
-        if (typeof req.body.win === 'string') {
+        if (typeof req.body.win === 'string' || req.body.win === null) {
             combat.win = req.body.win;
         }
         if (req.body.status) {
@@ -62,7 +75,7 @@ router.patch('/', async (req, res) => {
 
         await combat.save();
 
-        return res.status(200).json({ message: 'Le combat a été mis à jour' });
+        return res.status(200).json(combat);
     } catch (error) {
         return res.status(500).json({ message: 'Internal Error' });
     }
