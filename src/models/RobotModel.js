@@ -8,6 +8,9 @@ const robotSchema = new mongoose.Schema(
             required: true,
             unique: true,
         },
+        stat: {
+            type: String,
+        },
     },
     {
         timestamps: true,

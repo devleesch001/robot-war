@@ -72,16 +72,11 @@ function findNumberSteps(totalPlayers) {
 
 router.post('/', async (req, res) => {
     try {
-        const robots = [];
 
         let numberRobots = req.body.fighters.length;
         if (!(numberRobots && (numberRobots & (numberRobots - 1)) === 0)) {
             return res.status(500).json({ message: 'Internal Error' });
         }
-
-        req.body.fighters.forEach(function (robot, index) {
-            robots.push(robot);
-        });
 
         // Mélanger les valeurs de la liste
         // let currentIndex = robots.length,
@@ -115,10 +110,9 @@ router.post('/', async (req, res) => {
             fights: [],
         });
 
-        const numberSteps = findNumberSteps(robots.length);
+        const numberSteps = findNumberSteps(req.body.fighters.length);
 
         await createCombatsTournoi(null, numberSteps, newTournoi);
-
 
         await addRobotInCombatsTournoi(newTournoi);
 
