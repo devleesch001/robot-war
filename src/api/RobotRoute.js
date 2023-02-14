@@ -32,19 +32,6 @@ router.get('/', async (req, res) => {
         const stats = await robotStat(req.query.id);
         const robotstat = { robot, stats };
         return res.status(200).json(robotstat);
-    } else if (typeof req.query.idrobotstat === 'string') {
-        let compteurWin = 0;
-        const allCombat = await Combat.find().populate('fighters').populate('win').populate('nextfight');
-        allCombat.forEach(function (combat) {
-            if (combat.fighters.find((e) => e._id.toString() === req.query.idrobotstat)) {
-                if (combat.win == null) {
-                    compteurWin = compteurWin + 2;
-                } else if (combat.win._id.toString() == req.query.idrobotstat) {
-                    compteurWin = compteurWin + 4;
-                }
-            }
-        });
-        return res.status(200).json(compteurWin);
     } else {
         const allRobot = await Robot.find();
         return res.status(200).json(allRobot);
