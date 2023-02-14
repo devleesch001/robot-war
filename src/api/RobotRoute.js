@@ -24,14 +24,12 @@ async function robotStat(idrobot) {
 }
 router.get('/', async (req, res) => {
     if (typeof req.query.name === 'string') {
-        console.log(req.query.name);
         const robot = await Robot.findOne({ name: req.query.name });
         return res.status(200).json(robot);
     } else if (typeof req.query.id === 'string') {
-        const robot = await Robot.findById(req.query.id);
+        const robot = await Robot.findById(req.query.id).lean().exec();
         const stats = await robotStat(req.query.id);
-        const robotstat = { robot, stats };
-        return res.status(200).json(robotstat);
+        return res.status(200).json({ ...robot, stats: stats });
     } else {
         const allRobot = await Robot.find();
         return res.status(200).json(allRobot);
