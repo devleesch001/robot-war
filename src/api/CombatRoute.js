@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { Combat } from '../models/CombatModel.js';
+import { createCombat } from '../services/RobotService.js';
 
 const router = Router();
 
@@ -28,18 +29,6 @@ router.get('/', async (req, res) => {
     }
 });
 
-export async function createCombat(listFighters, nextFight, name) {
-    const newCombat = new Combat({
-        fighters: listFighters,
-        status: 'WAITING',
-        nextfight: nextFight,
-        name: name,
-    });
-
-    await newCombat.save();
-
-    return newCombat;
-}
 router.post('/', async (req, res) => {
     try {
         const newCombat = await createCombat(req.body.fighters, req.body.nextfight, null);

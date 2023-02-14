@@ -2,7 +2,8 @@ import { Router } from 'express';
 import { Combat } from '../models/CombatModel.js';
 import { Robot } from '../models/RobotModel.js';
 import { Tournoi } from '../models/TournoiModel.js';
-import { createCombat } from './CombatRoute.js';
+import { createCombatsTournoi } from '../services/TournoiService.js';
+import { addRobotInCombatsTournoi } from '../services/TournoiService.js';
 
 const router = Router();
 
@@ -30,40 +31,6 @@ router.get('/', async (req, res) => {
     }
 });
 
-async function createCombatsTournoi(combat, etage, newTournoi) {
-    // Crer une liste de combat
-    if (etage <= 0) {
-        // Remplire les joueurs dans le tableau
-        return null;
-    } else if (combat == null) {
-        combat = await createCombat([], null, null);
-        console.log(combat);
-        newTournoi.fights.push(combat);
-        await createCombatsTournoi(combat, etage - 1, newTournoi);
-    } else {
-        let name = null;
-        if (etage - 1 == 0) {
-            name = 'INITMATCH';
-        }
-        const combatFils1 = await createCombat([], combat, name);
-        newTournoi.fights.push(combatFils1);
-        const combatFils2 = await createCombat([], combat, name);
-        newTournoi.fights.push(combatFils2);
-        await createCombatsTournoi(combatFils1, etage - 1, newTournoi);
-        await createCombatsTournoi(combatFils2, etage - 1, newTournoi);
-    }
-}
-
-async function addRobotInCombatsTournoi(newTournoi) {
-    let listFighters = newTournoi.fighters.slice();
-    newTournoi.fights.forEach(function (combat) {
-        if (combat.name === 'INITMATCH') {
-            combat.fighters = listFighters.splice(0, 2);
-            combat.save();
-        }
-    });
-}
-
 function findNumberSteps(totalPlayers) {
     let numberSteps = 0;
     while (Math.pow(2, numberSteps) < totalPlayers) {
@@ -74,7 +41,6 @@ function findNumberSteps(totalPlayers) {
 
 router.post('/', async (req, res) => {
     try {
-
         let numberRobots = req.body.fighters.length;
         if (!(numberRobots && (numberRobots & (numberRobots - 1)) === 0)) {
             throw new Error('numberRobots invalid');
