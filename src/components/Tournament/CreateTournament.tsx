@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-import { Card, Button, Form, Select, notification } from 'antd';
-import { getRobots, RobotInterface } from '../../api/RobotApi';
+import { Card, Button, Form, Select, notification, Input } from 'antd';
+import { addRobot, getRobots, RobotInterface } from '../../api/RobotApi';
+import { addTournament } from '../../api/TournamentApi';
 
 const { Option } = Select;
 
@@ -39,7 +40,13 @@ const CreateTournament: React.FC = () => {
         return () => clearInterval(interval);
     }, []);
     const onFinish = (values: any) => {
-        console.log('Received values of form:', values);
+        addTournament(values).then((res) => {
+            console.log(res);
+            notification.open({
+                message: 'Robot Created',
+            });
+            form.resetFields();
+        });
         notification.open({
             message: 'Tournament Created',
         });
@@ -58,6 +65,13 @@ const CreateTournament: React.FC = () => {
                 wrapperCol={{ xs: { span: 24, offset: 0 }, sm: { span: 20, offset: 4 } }}
                 onFinish={onFinish}
             >
+                <Form.Item
+                    label="name"
+                    name="name"
+                    rules={[{ required: true, message: 'Please input your name of tournament!' }]}
+                >
+                    <Input style={{ width: '60%' }} />
+                </Form.Item>
                 <Form.List
                     name="fighters"
                     rules={[

@@ -66,7 +66,7 @@ const DisplayFight: React.FC<DisplayFightProps> = (props) => {
                         </Col>
                         <Col span={6}>
                             <TimerFight fight={fight} isAdmin={isAdmin} />
-                            <Winner fight={fight} />
+                            {isAdmin && <Winner fight={fight} isAdmin={isAdmin} />}
                         </Col>
                     </Row>
                     <Row gutter={[16, 16]} justify={'center'}>
