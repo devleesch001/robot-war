@@ -50,14 +50,16 @@ async function createCombatsTournoi(combat, etage, newTournoi) {
 }
 
 async function addRobotInCombatsTournoi(newTournoi) {
-    let listFighters = newTournoi.fighters;
+    let listFighters = newTournoi.fighters.slice();
+    console.log(listFighters);
+    console.log(newTournoi.fighters);
     newTournoi.fights.forEach(function (combat, index) {
         if (combat.name == 'INITMATCH') {
             combat.fighters = [listFighters[0], listFighters[1]];
             listFighters.splice(0, 2);
         }
     });
-    console.log(newTournoi);
+    // console.log(newTournoi);
 }
 
 function findNumberSteps(totalPlayers) {
@@ -102,9 +104,13 @@ router.post('/', async (req, res) => {
         //     newRobots = robots.slice(i, i + 2);
         // }
 
+        if (typeof req.body.name !== 'string')
+            throw new Error("name not a string");
+
+
         const newTournoi = await new Tournoi({
-            name: 'SALUT',
-            fighters: robots,
+            name: req.body.name,
+            fighters: req.body.fighters,
             status: 'WAITING',
             fights: [],
         });
@@ -112,6 +118,7 @@ router.post('/', async (req, res) => {
         const numberSteps = findNumberSteps(robots.length);
 
         await createCombatsTournoi(null, numberSteps, newTournoi);
+
 
         await addRobotInCombatsTournoi(newTournoi);
 
