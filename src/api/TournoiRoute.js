@@ -10,8 +10,13 @@ router.get('/', async (req, res) => {
     if (typeof req.query.id === 'string') {
         const allTournois = await Tournoi.findById(req.query.id)
             .populate('fighters')
-            .populate('fights')
-            .populate('win');
+            .populate('win')
+            .populate({
+                path: 'fights',
+                model: Combat,
+                populate: [{ path: 'fighters', model: Robot }],
+            });
+
         return res.status(200).json(allTournois);
     } else if (typeof req.query.name === 'string') {
         const allTournois = await Tournoi.findOne({ name: req.query.name })
@@ -51,15 +56,12 @@ async function createCombatsTournoi(combat, etage, newTournoi) {
 
 async function addRobotInCombatsTournoi(newTournoi) {
     let listFighters = newTournoi.fighters.slice();
-    console.log(listFighters);
-    console.log(newTournoi.fighters);
-    newTournoi.fights.forEach(function (combat, index) {
-        if (combat.name == 'INITMATCH') {
-            combat.fighters = [listFighters[0], listFighters[1]];
-            listFighters.splice(0, 2);
+    newTournoi.fights.forEach(function (combat) {
+        if (combat.name === 'INITMATCH') {
+            combat.fighters = listFighters.splice(0, 2);
+            combat.save();
         }
     });
-    // console.log(newTournoi);
 }
 
 function findNumberSteps(totalPlayers) {
@@ -72,41 +74,12 @@ function findNumberSteps(totalPlayers) {
 
 router.post('/', async (req, res) => {
     try {
-        const robots = [];
-
         let numberRobots = req.body.fighters.length;
         if (!(numberRobots && (numberRobots & (numberRobots - 1)) === 0)) {
-            return res.status(500).json({ message: 'Internal Error' });
+            throw new Error('numberRobots invalid');
         }
 
-        req.body.fighters.forEach(function (robot, index) {
-            robots.push(robot);
-        });
-
-        // Mélanger les valeurs de la liste
-        // let currentIndex = robots.length,
-        //     temporaryValue,
-        //     randomIndex;
-        //
-        // while (0 !== currentIndex) {
-        //     // Sélectionnez un élément restant...
-        //     randomIndex = Math.floor(Math.random() * currentIndex);
-        //     currentIndex -= 1;
-        //
-        //     // Et échangez-le avec le courant.
-        //     temporaryValue = robots[currentIndex];
-        //     robots[currentIndex] = robots[randomIndex];
-        //     robots[randomIndex] = temporaryValue;
-        // }
-        //
-        // let newRobots = [];
-        // for (let i = 0; i < robots.length; i += 2) {
-        //     newRobots = robots.slice(i, i + 2);
-        // }
-
-        if (typeof req.body.name !== 'string')
-            throw new Error("name not a string");
-
+        if (typeof req.body.name !== 'string') throw new Error('name not a string');
 
         const newTournoi = await new Tournoi({
             name: req.body.name,
@@ -115,10 +88,9 @@ router.post('/', async (req, res) => {
             fights: [],
         });
 
-        const numberSteps = findNumberSteps(robots.length);
+        const numberSteps = findNumberSteps(req.body.fighters.length);
 
         await createCombatsTournoi(null, numberSteps, newTournoi);
-
 
         await addRobotInCombatsTournoi(newTournoi);
 
