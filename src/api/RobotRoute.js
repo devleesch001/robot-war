@@ -4,27 +4,34 @@ import { Combat } from '../models/CombatModel.js';
 
 const router = Router();
 
+async function robotStat(idrobot) {
+    const stat = { win: 0, draw: 0, lose: 0, score: 0 };
+    const allCombat = await Combat.find().populate('fighters').populate('win').populate('nextfight');
+    allCombat.forEach(function (combat) {
+        if (combat.fighters.find((e) => e._id.toString() === idrobot)) {
+            if (combat.win == null) {
+                stat.score = stat.score + 2;
+                stat.draw = stat.draw + 1;
+            } else if (combat.win._id.toString() == idrobot) {
+                stat.score = stat.score + 4;
+                stat.win = stat.win + 1;
+            } else {
+                stat.lose = stat.lose + 1;
+            }
+        }
+    });
+    return stat;
+}
 router.get('/', async (req, res) => {
     if (typeof req.query.name === 'string') {
         console.log(req.query.name);
-        const allRobot = await Robot.findOne({ name: req.query.name });
-        return res.status(200).json(allRobot);
+        const robot = await Robot.findOne({ name: req.query.name });
+        return res.status(200).json(robot);
     } else if (typeof req.query.id === 'string') {
-        const allRobot = await Robot.findById(req.query.id);
-        return res.status(200).json(allRobot);
-    } else if (typeof req.query.idrobotstat === 'string') {
-        let compteurWin = 0;
-        const allCombat = await Combat.find().populate('fighters').populate('win').populate('nextfight');
-        allCombat.forEach(function (combat) {
-            if (combat.fighters.find((e) => e._id.toString() === req.query.idrobotstat)) {
-                if (combat.win == null) {
-                    compteurWin = compteurWin + 2;
-                } else if (combat.win._id.toString() == req.query.idrobotstat) {
-                    compteurWin = compteurWin + 4;
-                }
-            }
-        });
-        return res.status(200).json(compteurWin);
+        const robot = await Robot.findById(req.query.id);
+        const stats = await robotStat(req.query.id);
+        const robotstat = { robot, stats };
+        return res.status(200).json(robotstat);
     } else {
         const allRobot = await Robot.find();
         return res.status(200).json(allRobot);

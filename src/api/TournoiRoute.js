@@ -74,6 +74,7 @@ function findNumberSteps(totalPlayers) {
 
 router.post('/', async (req, res) => {
     try {
+
         let numberRobots = req.body.fighters.length;
         if (!(numberRobots && (numberRobots & (numberRobots - 1)) === 0)) {
             throw new Error('numberRobots invalid');
