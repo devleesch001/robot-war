@@ -33,7 +33,6 @@ interface CardStatsInterface {
 const Card1vs1: React.FC<CardStatsInterface> = (props) => {
     const { fight } = props;
 
-    console.log(fight);
     return (
         <Card title="Stats" style={{ minWidth: 370 }} headStyle={{ backgroundColor: 'black', color: 'whitesmoke' }}>
             <Row gutter={16}>

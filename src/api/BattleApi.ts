@@ -10,6 +10,8 @@ export interface BattleInterface {
     win?: RobotInterface;
 
     status?: string;
+    startedAt?: Date;
+    duration?: number;
 }
 
 export const getBattles = async () => {
@@ -28,11 +30,13 @@ export const addBattle = async (data: BattleInterface) => {
 };
 
 export interface BattleUpdateInterface {
-    _id: string;
-    fighters: RobotInterface[];
-    win?: RobotInterface;
+    id: string;
+    fighters?: RobotInterface[];
+    win?: string;
 
     status?: string;
+    startedAt?: Date;
+    duration?: number;
 }
 export const updateBattle = async (data: BattleUpdateInterface) => {
     const result = await axios.patch<BattleInterface>(`${API_URL}/api/battle`, data);

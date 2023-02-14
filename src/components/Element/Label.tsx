@@ -6,9 +6,10 @@ interface LabelProps {
     color: string;
     borderColor?: string;
     win?: boolean;
+    onClick?(): void;
 }
 const Label: React.FC<React.PropsWithChildren<LabelProps>> = (props) => {
-    const { color, borderColor, win, children } = props;
+    const { color, borderColor, win, children, onClick } = props;
 
     const style: React.CSSProperties = { backgroundColor: color };
 
@@ -24,7 +25,7 @@ const Label: React.FC<React.PropsWithChildren<LabelProps>> = (props) => {
     }
 
     return (
-        <Button type="primary" style={style}>
+        <Button type="primary" style={style} onClick={onClick}>
             <div style={{ position: 'absolute', left: '0px', top: '0px' }}></div>
             {children}
         </Button>

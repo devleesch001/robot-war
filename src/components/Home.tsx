@@ -4,12 +4,13 @@ const { Content } = Layout;
 import FightBoard from './Fight/FightBoard';
 import TournamentBoard from './Tournament/TournamentBoard';
 import RobotsBoard from './Robot/RobotsBoard';
+import { blue } from '@ant-design/colors';
 
 function Home() {
     return (
         <>
             <Menu
-                style={{ justifyContent: 'center', backgroundColor: 'black' }}
+                style={{ justifyContent: 'center', backgroundColor: blue[5] }}
                 mode="horizontal"
                 items={[
                     {
