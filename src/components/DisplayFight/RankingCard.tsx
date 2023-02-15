@@ -1,22 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Card, Table } from 'antd';
-import { RobotInterface } from '../../api/RobotApi';
+
 import { getRobotsWithStats } from '../../api/RobotApi';
-
-interface dataSources {
-    Position: number;
-    Teams: string;
-
-    Fight: number;
-
-    Win: number;
-
-    Draw: number;
-
-    Loose: number;
-
-    Point: number;
-}
+import { RobotInterface } from '../../api/RobotApi';
 
 const columns = [
     {
