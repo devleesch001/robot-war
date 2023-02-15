@@ -15,7 +15,7 @@ const UpdateRobot: React.FC<UpdateRobotInterface> = (props) => {
 
     React.useEffect(() => {
         const interval = setInterval(() => {
-            getRobot({ _id: id }).then((robot) => {
+            getRobot({ id: id }).then((robot) => {
                 setRobot(robot);
                 form.setFieldsValue(robot);
             });

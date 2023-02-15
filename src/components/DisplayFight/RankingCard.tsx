@@ -3,7 +3,7 @@ import { Card, Table } from 'antd';
 import { RobotInterface } from '../../api/RobotApi';
 import { getRobotsWithStats } from '../../api/RobotApi';
 
-interface datasources {
+interface dataSources {
     Position: number;
     Teams: string;
 
@@ -56,18 +56,14 @@ const columns = [
     },
 ];
 
-const RanckingCard: React.FC = () => {
-    const [robotList, setRobotlist] = React.useState<RobotInterface[]>([]);
+const RankingCard: React.FC = () => {
+    const [robots, setRobots] = React.useState<RobotInterface[]>([]);
 
     React.useEffect(() => {
         const interval = setInterval(() => {
-            getRobotsWithStats()
-                .then((Robot) => {
-                    setRobotlist(Robot.sort((robot) => robot.stats.score));
-                })
-                .catch((err) => {
-                    setRobotlist([]);
-                });
+            getRobotsWithStats().then((robots) => {
+                setRobots(robots.sort((robotA, robotB) => robotB.stats.score - robotA.stats.score));
+            });
         }, 1000);
         return () => clearInterval(interval);
     }, []);
@@ -76,7 +72,7 @@ const RanckingCard: React.FC = () => {
         <Card title="Ranking" style={{ minWidth: 370 }} headStyle={{ backgroundColor: 'black', color: 'whitesmoke' }}>
             <Table
                 columns={columns}
-                dataSource={robotList.map((robot, index) => {
+                dataSource={robots.map((robot, index) => {
                     return {
                         position: index + 1,
                         robot: robot.name,
@@ -92,4 +88,4 @@ const RanckingCard: React.FC = () => {
     );
 };
 
-export default RanckingCard;
+export default RankingCard;

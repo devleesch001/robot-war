@@ -1,11 +1,9 @@
 import React from 'react';
-import { Button, Menu, Typography } from 'antd';
+import { Button, Card, Menu, Typography } from 'antd';
 import { formatTournament, getTournament, TournamentInterface } from '../../api/TournamentApi';
-import { red, yellow, orange, green } from '@ant-design/colors';
+import { red, yellow, orange, green, blue } from '@ant-design/colors';
 import { useParams } from 'react-router-dom';
-import { createTheme, Match, SingleEliminationBracket, SVGViewer } from '@g-loot/react-tournament-brackets';
-import Label from '../Element/Label';
-
+import { createTheme, SingleEliminationBracket } from '@g-loot/react-tournament-brackets';
 type TournamentBoardParams = {
     tournamentId: string;
 };
@@ -41,21 +39,20 @@ const TournamentBoard: React.FC<TournamentBordInterface> = (props) => {
     const [tournament, setTournament] = React.useState<TournamentInterface | null>(null);
 
     React.useEffect(() => {
-        if (tournamentId) {
-            getTournament(tournamentId).then((tournaments) => {
-                setTournament(tournaments);
-            });
-        }
-        // const interval = setInterval(() => {
-        //
-        // }, 1000);
-        // return () => clearInterval(interval);
+        const interval = setInterval(() => {
+            if (tournamentId) {
+                getTournament(tournamentId).then((tournaments) => {
+                    setTournament(tournaments);
+                });
+            }
+        }, 1000);
+        return () => clearInterval(interval);
     }, []);
 
     return (
         <>
             <Menu
-                style={{ justifyContent: 'center', backgroundColor: isAdmin ? red[5] : 'black' }}
+                style={{ justifyContent: 'center', backgroundColor: isAdmin ? red[5] : blue[5] }}
                 mode="horizontal"
                 items={[
                     {
@@ -70,71 +67,69 @@ const TournamentBoard: React.FC<TournamentBordInterface> = (props) => {
                     },
                 ]}
             />
+
             {tournament && (
-                <div style={{ height: '1000px' }}>
-                    <div>{tournament.name}</div>
-                    <SingleEliminationBracket
-                        theme={WhiteTheme}
-                        options={{
-                            style: {
-                                roundHeader: {
-                                    backgroundColor: WhiteStyle.roundHeader.backgroundColor,
-                                    fontColor: WhiteStyle.roundHeader.fontColor,
-                                },
-                                connectorColor: WhiteStyle.connectorColor,
-                                connectorColorHighlight: WhiteStyle.connectorColorHighlight,
-                            },
-                        }}
-                        matches={formatTournament(tournament)}
-                        // svgWrapper={({ children, ...props }) => (
-                        //     <SVGViewer width={1080} height={1080} {...props}>
-                        //         {children}
-                        //     </SVGViewer>
-                        // )}
-                        matchComponent={({
-                            match,
-                            onMatchClick,
-                            onPartyClick,
-                            onMouseEnter,
-                            onMouseLeave,
-                            topParty,
-                            bottomParty,
-                            topWon,
-                            bottomWon,
-                            topHovered,
-                            bottomHovered,
-                            topText,
-                            bottomText,
-                            connectorColor,
-                            computedStyles,
-                            teamNameFallback,
-                            resultFallback,
-                        }) => (
-                            <Button
-                                style={{
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    justifyContent: 'space-around',
-                                    color: 'white',
-                                    width: '100%',
-                                    height: '100%',
-                                    backgroundColor: red[5],
+                <div style={{ margin: 16 }}>
+                    <Card
+                        title={tournament.name}
+                        style={{ minWidth: 400 }}
+                        headStyle={{ backgroundColor: 'black', color: 'whitesmoke' }}
+                    >
+                        <div style={{ height: '1000px' }}>
+                            <SingleEliminationBracket
+                                theme={WhiteTheme}
+                                options={{
+                                    style: {
+                                        roundHeader: {
+                                            backgroundColor: WhiteStyle.roundHeader.backgroundColor,
+                                            fontColor: WhiteStyle.roundHeader.fontColor,
+                                        },
+                                        connectorColor: WhiteStyle.connectorColor,
+                                        connectorColorHighlight: WhiteStyle.connectorColorHighlight,
+                                    },
                                 }}
-                                href={`/fights/${match.id}`}
-                                target={'_blank'}
-                            >
-                                <div onMouseEnter={() => onMouseEnter(topParty.id)} style={{ display: 'flex' }}>
-                                    <div>{topParty.name || teamNameFallback}</div>
-                                    <div>{topParty.resultText ?? resultFallback(topParty)}</div>
-                                </div>
-                                <div style={{ height: '1px', width: '100%', background: 'black' }} />
-                                <div onMouseEnter={() => onMouseEnter(bottomParty.id)} style={{ display: 'flex' }}>
-                                    <div>{bottomParty.name || teamNameFallback}</div>
-                                    <div>{bottomParty.resultText ?? resultFallback(topParty)}</div>
-                                </div>
-                            </Button>
-                        )}
-                    />
+                                matches={formatTournament(tournament)}
+                                matchComponent={({
+                                    match,
+                                    onMouseEnter,
+                                    topParty,
+                                    bottomParty,
+                                    teamNameFallback,
+                                    resultFallback,
+                                }) => (
+                                    <Button
+                                        style={{
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            justifyContent: 'space-around',
+                                            color: 'white',
+                                            width: '100%',
+                                            height: '100%',
+                                            backgroundColor: red[5],
+                                        }}
+                                        href={`/${isAdmin ? 'admin/' : ''}fights/${match.id}`}
+                                        target={'_blank'}
+                                    >
+                                        <div
+                                            onMouseEnter={() => onMouseEnter(topParty.id)}
+                                            style={{ display: 'flex', justifyContent: 'space-between' }}
+                                        >
+                                            <div>{topParty.name || teamNameFallback}</div>
+                                            <div>{topParty.resultText ?? resultFallback(topParty)}</div>
+                                        </div>
+                                        <div style={{ height: '1px', width: '100%', background: 'black' }} />
+                                        <div
+                                            onMouseEnter={() => onMouseEnter(bottomParty.id)}
+                                            style={{ display: 'flex', justifyContent: 'space-between' }}
+                                        >
+                                            <div>{bottomParty.name || teamNameFallback}</div>
+                                            <div>{bottomParty.resultText ?? resultFallback(topParty)}</div>
+                                        </div>
+                                    </Button>
+                                )}
+                            />
+                        </div>
+                    </Card>
                 </div>
             )}
         </>

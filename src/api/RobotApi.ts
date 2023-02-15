@@ -22,9 +22,9 @@ export const getRobots = async (params?: RobotGetInterface) => {
     return result.data;
 };
 
-export const getRobot = async (params: { _id: string }) => {
-    const result = await axios.get<RobotInterface[]>(`${API_URL}/api/robot`, { params: params });
-    return result.data[0];
+export const getRobot = async (params: { id: string }) => {
+    const result = await axios.get<RobotInterface>(`${API_URL}/api/robot`, { params: params });
+    return result.data;
 };
 
 export const addRobot = async (data: BattleInterface) => {

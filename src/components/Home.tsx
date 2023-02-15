@@ -29,10 +29,10 @@ function Home() {
                 <Content style={{ margin: 15 }}>
                     <Row gutter={[12, 12]} justify={'center'}>
                         <Col xs={24} md={24} xl={12} xxl={12}>
-                            <FightBoard />
+                            <FightBoard isAdmin={false} />
                         </Col>
                         <Col xs={24} md={12} xl={8} xxl={6}>
-                            <TournamentList />
+                            <TournamentList isAdmin={false} />
                         </Col>
                         <Col xs={24} md={12} xl={8} xxl={6}>
                             <RobotsBoard />

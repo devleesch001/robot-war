@@ -1,25 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Card, Col, Divider, Modal, Row, Tooltip, Typography } from 'antd';
-import { BattleInterface, getBattles } from '../../api/BattleApi';
-import { RobotInterface } from '../../api/RobotApi';
-import { blue, yellow } from '@ant-design/colors';
-import LabelRobot, { WinPos } from '../Element/LabelRobot';
-import { StopFilled, EyeFilled, EditFilled, HourglassFilled, CheckCircleFilled } from '@ant-design/icons';
-import UpdateRobot from '../Robot/UpdateRobot';
-import UpdateFight from './UpdateFight';
+import React, { useState } from 'react';
 
-function isWinner(fighter: RobotInterface, battle: BattleInterface) {
-    return battle.win === undefined ? battle.win : battle.win?._id === fighter._id;
-}
+import { Button, Card, Col, Divider, Modal, Row, Tooltip, Typography } from 'antd';
+import { blue } from '@ant-design/colors';
+import { StopFilled, EyeFilled, EditFilled, HourglassFilled, CheckCircleFilled } from '@ant-design/icons';
+
+import LabelRobot, { WinPos } from '../Element/LabelRobot';
+import UpdateFight from './UpdateFight';
+import { BattleInterface, getBattles } from '../../api/BattleApi';
 
 interface BattleLineProps {
+    isAdmin: boolean;
     battle: BattleInterface;
     admin: boolean;
     handleEdit(combat: BattleInterface): void;
 }
 
 export const BattleLine: React.FC<BattleLineProps> = (props) => {
-    const { battle, admin, handleEdit } = props;
+    const { isAdmin, battle, admin, handleEdit } = props;
 
     const labels = battle.fighters.map((fighter, index, array) => (
         <Row key={index} style={{ padding: 5 }}>
@@ -90,7 +87,7 @@ export const BattleLine: React.FC<BattleLineProps> = (props) => {
                             <EditFilled style={{ color: blue[5], fontSize: '20px' }} />
                         </Button>
                     )}
-                    <Button href={`fights/${battle._id}`} type="default" shape="circle">
+                    <Button href={`/${isAdmin ? 'admin/' : ''}fights/${battle._id}`} type="default" shape="circle">
                         <EyeFilled style={{ color: blue[5], fontSize: '20px' }} />
                     </Button>
                 </Row>
@@ -99,8 +96,14 @@ export const BattleLine: React.FC<BattleLineProps> = (props) => {
     );
 };
 
-const FightBoard: React.FC = () => {
+interface FightBoardInterface {
+    isAdmin: boolean;
+}
+
+const FightBoard: React.FC<FightBoardInterface> = (props) => {
     const [battles, setBattles] = React.useState<BattleInterface[]>([]);
+
+    const { isAdmin } = props;
 
     React.useEffect(() => {
         const interval = setInterval(() => {
@@ -143,7 +146,7 @@ const FightBoard: React.FC = () => {
         >
             {battles.map((battle) => (
                 <React.Fragment key={battle._id}>
-                    <BattleLine battle={battle} admin={true} handleEdit={() => edit(battle)} />
+                    <BattleLine isAdmin={isAdmin} battle={battle} admin={true} handleEdit={() => edit(battle)} />
                     <Divider />
                 </React.Fragment>
             ))}
