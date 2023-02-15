@@ -1,17 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Card, Table } from 'antd';
-
-const dataSource = [
-    {
-        Position: '1',
-        Teams: 'ROBOT2',
-        Fight: '5',
-        Win: '5',
-        Draw: '0',
-        Loose: '0',
-        Point: '20',
-    },
-];
+import { getBattle } from '../../api/BattleApi';
 
 const columns = [
     {
@@ -54,7 +43,12 @@ const columns = [
 const RanckingCard: React.FC = (props) => {
     return (
         <Card title="Ranking" style={{ minWidth: 370 }} headStyle={{ backgroundColor: 'black', color: 'whitesmoke' }}>
-            <Table columns={columns} dataSource={dataSource} />
+            <Table
+                columns={columns}
+                dataSource={() => {
+                    columns.at(0);
+                }}
+            />
         </Card>
     );
 };

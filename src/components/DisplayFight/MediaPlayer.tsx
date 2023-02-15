@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Spin, Card } from 'antd';
+import { Spin, Card, Row } from 'antd';
+import logo from './robot_rezise.gif';
 
 interface Props {
     mediaSrc: string;
@@ -21,6 +22,9 @@ const MediaPlayer: React.FC<Props> = (props) => {
                 <Spin spinning={loading}>
                     <video src={props.mediaSrc} onLoadedData={handleLoad} controls style={{ width: '100%' }} />
                 </Spin>
+                <Row justify={'center'}>
+                    <img src={logo} alt="loading..." />
+                </Row>
             </Card>
         </>
     );

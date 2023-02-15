@@ -1,8 +1,8 @@
 import React from 'react';
 import { Card, Col, Divider, Row, Typography } from 'antd';
-import { BattleInterface } from '../../../api/BattleApi';
-import LabelRobot, { WinPos } from '../../Element/LabelRobot';
-import Label from '../../Element/Label';
+import { BattleInterface } from '../../api/BattleApi';
+import LabelRobot, { WinPos } from '../Element/LabelRobot';
+import Label from '../Element/Label';
 import { blue } from '@ant-design/colors';
 
 // interface TeamCardProps {
@@ -71,21 +71,6 @@ const Card1vs1: React.FC<CardStatsInterface> = (props) => {
                         <Divider type={'vertical'} dashed={false} />
                     </Col>
                 ))}
-
-                {/*<Col span={12}>*/}
-                {/*    <Typography.Title level={4}>{}</Typography.Title>*/}
-                {/*    <p>Team: {}</p>*/}
-                {/*    <Divider />*/}
-                {/*    <p>Wins:{}</p>*/}
-                {/*    <Divider />*/}
-                {/*    <p>Draw: {}</p>*/}
-                {/*    <Divider />*/}
-                {/*    <p>Losses: {}</p>*/}
-                {/*    <Divider />*/}
-                {/*    <p>Rancking: {}</p>*/}
-                {/*    <Divider />*/}
-                {/*    <p>Score: {}</p>*/}
-                {/*</Col>*/}
             </Row>
         </Card>
     );

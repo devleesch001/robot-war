@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Row, Col, Menu, Typography } from 'antd';
-import MediaPlayer from './DIsplayFight/MediaPlayer';
-import CardStatisticalFight from './DIsplayFight/CardStatisticalFight';
-import RanckingCard from './DIsplayFight/RanckingCard';
+import MediaPlayer from '../DisplayFight/MediaPlayer';
+import CardStatisticalFight from '../DisplayFight/CardStatisticalFight';
+import RanckingCard from '../DisplayFight/RanckingCard';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { BattleInterface, getBattle } from '../../api/BattleApi';

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col, Divider, Typography } from 'antd';
 
-import { RobotInterface } from '../../../api/RobotApi';
+import { RobotInterface } from '../../api/RobotApi';
 
 // interface TeamCardProps {
 //     fighters: RobotInterface[];
