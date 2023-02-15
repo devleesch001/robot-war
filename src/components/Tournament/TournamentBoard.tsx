@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu, Typography } from 'antd';
+import { Button, Menu, Typography } from 'antd';
 import { formatTournament, getTournament, TournamentInterface } from '../../api/TournamentApi';
 import { red, yellow, orange, green } from '@ant-design/colors';
 import { useParams } from 'react-router-dom';
@@ -110,33 +110,29 @@ const TournamentBoard: React.FC<TournamentBordInterface> = (props) => {
                             teamNameFallback,
                             resultFallback,
                         }) => (
-                            <div
+                            <Button
                                 style={{
                                     display: 'flex',
                                     flexDirection: 'column',
                                     justifyContent: 'space-around',
-                                    color: '#000',
+                                    color: 'white',
                                     width: '100%',
                                     height: '100%',
+                                    backgroundColor: red[5],
                                 }}
+                                href={`/fights/${match.id}`}
+                                target={'_blank'}
                             >
-                                <Label
-                                    color={red[7]}
-                                    style={{ height: '100%' }}
-                                    href={`/fights/${match.id}`}
-                                    target={'_blank'}
-                                >
-                                    <div onMouseEnter={() => onMouseEnter(topParty.id)} style={{ display: 'flex' }}>
-                                        <div>{topParty.name || teamNameFallback}</div>
-                                        <div>{topParty.resultText ?? resultFallback(topParty)}</div>
-                                    </div>
-                                    <div style={{ height: '1px', width: '100%', background: '#FF8C00' }} />
-                                    <div onMouseEnter={() => onMouseEnter(bottomParty.id)} style={{ display: 'flex' }}>
-                                        <div>{bottomParty.name || teamNameFallback}</div>
-                                        <div>{bottomParty.resultText ?? resultFallback(topParty)}</div>
-                                    </div>
-                                </Label>
-                            </div>
+                                <div onMouseEnter={() => onMouseEnter(topParty.id)} style={{ display: 'flex' }}>
+                                    <div>{topParty.name || teamNameFallback}</div>
+                                    <div>{topParty.resultText ?? resultFallback(topParty)}</div>
+                                </div>
+                                <div style={{ height: '1px', width: '100%', background: 'black' }} />
+                                <div onMouseEnter={() => onMouseEnter(bottomParty.id)} style={{ display: 'flex' }}>
+                                    <div>{bottomParty.name || teamNameFallback}</div>
+                                    <div>{bottomParty.resultText ?? resultFallback(topParty)}</div>
+                                </div>
+                            </Button>
                         )}
                     />
                 </div>
