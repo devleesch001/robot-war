@@ -2,7 +2,7 @@ import React from 'react';
 import { Col, Layout, Menu, Row, Typography } from 'antd';
 const { Content } = Layout;
 import FightBoard from './Fight/FightBoard';
-import TournamentBoard from './Tournament/TournamentBoard';
+import TournamentList from './Tournament/TournamentList';
 import RobotsBoard from './Robot/RobotsBoard';
 import { blue } from '@ant-design/colors';
 
@@ -32,7 +32,7 @@ function Home() {
                             <FightBoard />
                         </Col>
                         <Col xs={24} md={12} xl={8} xxl={6}>
-                            <TournamentBoard />
+                            <TournamentList />
                         </Col>
                         <Col xs={24} md={12} xl={8} xxl={6}>
                             <RobotsBoard />

@@ -6,10 +6,11 @@ import { RobotInterface } from '../../api/RobotApi';
 
 interface WinnerInterface {
     fight: BattleInterface;
+    isAdmin: boolean;
 }
 
 const Winner: React.FC<WinnerInterface> = (props) => {
-    const { fight } = props;
+    const { fight, isAdmin } = props;
 
     const [isModalOpen, setIsModalOpen] = React.useState(false);
     const [activeRobot, setActiveRobot] = React.useState<RobotInterface | null>(null);

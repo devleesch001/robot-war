@@ -4,29 +4,37 @@ import { yellow } from '@ant-design/colors';
 
 interface LabelProps {
     color: string;
+    href?: string;
+    target?: string;
+    style?: React.CSSProperties;
     borderColor?: string;
     win?: boolean;
+
     onClick?(): void;
 }
 const Label: React.FC<React.PropsWithChildren<LabelProps>> = (props) => {
-    const { color, borderColor, win, children, onClick } = props;
+    const { color, href, borderColor, target, win, children, onClick, style } = props;
 
-    const style: React.CSSProperties = { backgroundColor: color };
+    let appliedStyle: React.CSSProperties = { backgroundColor: color };
 
-    if (win === true) {
-        style.borderWidth = '2px';
-        style.borderStyle = 'solid';
-        style.borderColor = 'green';
-    } else if (win === false) {
-        style.borderWidth = '2px';
-        style.border = '2px';
-        style.borderStyle = 'solid';
-        style.borderColor = 'red';
+    if (style) {
+        appliedStyle = { ...style, ...appliedStyle };
     }
 
+    if (win === true) {
+        appliedStyle.borderWidth = '2px';
+        appliedStyle.borderStyle = 'solid';
+        appliedStyle.borderColor = 'green';
+    } else if (win === false) {
+        appliedStyle.borderWidth = '2px';
+        appliedStyle.border = '2px';
+        appliedStyle.borderStyle = 'solid';
+        appliedStyle.borderColor = 'red';
+    }
+
+    console.log(appliedStyle);
     return (
-        <Button type="primary" style={style} onClick={onClick}>
-            <div style={{ position: 'absolute', left: '0px', top: '0px' }}></div>
+        <Button type="primary" style={appliedStyle} onClick={onClick} href={href} target={target}>
             {children}
         </Button>
     );
