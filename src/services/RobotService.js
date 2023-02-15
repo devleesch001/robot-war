@@ -1,7 +1,7 @@
 import { Combat } from '../models/CombatModel.js';
 
 export async function robotStat(idrobot) {
-    const stat = { win: 0, draw: 0, lose: 0, score: 0 };
+    const stat = { win: 0, draw: 0, loose: 0, score: 0 };
     const allCombat = await Combat.find().populate('fighters').populate('win').populate('nextfight');
     allCombat.forEach(function (combat) {
         if (combat.fighters.find((e) => e._id.toString() === idrobot)) {
