@@ -14,17 +14,6 @@ import { blue } from '@ant-design/colors';
 // 2/egaliter
 // 2/bonus finaliste
 // 0/defaite
-function nbwins(id: string) {
-    //Todo récuperer le nb de victoir
-}
-
-function nbDraw() {
-    //Todo récuperer le nb d'egaliter
-}
-
-function nblooses() {
-    //Todo récuperer le nb de defaite
-}
 
 interface CardStatsInterface {
     fight: BattleInterface;

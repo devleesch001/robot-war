@@ -1,53 +1,92 @@
 import React, { useEffect } from 'react';
 import { Card, Table } from 'antd';
-import { getBattle } from '../../api/BattleApi';
+import { RobotInterface } from '../../api/RobotApi';
+import { getRobotsWithStats } from '../../api/RobotApi';
+
+interface datasources {
+    Position: number;
+    Teams: string;
+
+    Fight: number;
+
+    Win: number;
+
+    Draw: number;
+
+    Loose: number;
+
+    Point: number;
+}
 
 const columns = [
     {
         title: 'Position',
-        dataIndex: 'Position',
-        key: 'Position',
+        dataIndex: 'position',
+        key: 'position',
     },
     {
-        title: 'Teams',
-        dataIndex: 'Teams',
-        key: 'Teams',
+        title: 'Robot',
+        dataIndex: 'robot',
+        key: 'robot',
     },
     {
         title: 'Fight',
-        dataIndex: 'Fight',
-        key: 'Fight',
+        dataIndex: 'fight',
+        key: 'fight',
     },
     {
         title: 'Win',
-        dataIndex: 'Win',
-        key: 'Win',
+        dataIndex: 'win',
+        key: 'win',
     },
     {
         title: 'Draw',
-        dataIndex: 'Draw',
-        key: 'Draw',
+        dataIndex: 'draw',
+        key: 'draw',
     },
     {
         title: 'Loose',
-        dataIndex: 'Loose',
-        key: 'Loose',
+        dataIndex: 'loose',
+        key: 'loose',
     },
     {
         title: 'Point',
-        dataIndex: 'Point',
-        key: 'Point',
+        dataIndex: 'point',
+        key: 'point',
     },
 ];
 
-const RanckingCard: React.FC = (props) => {
+const RanckingCard: React.FC = () => {
+    const [robotList, setRobotlist] = React.useState<RobotInterface[]>([]);
+
+    React.useEffect(() => {
+        const interval = setInterval(() => {
+            getRobotsWithStats()
+                .then((Robot) => {
+                    setRobotlist(Robot.sort((robot) => robot.stats.score));
+                })
+                .catch((err) => {
+                    setRobotlist([]);
+                });
+        }, 1000);
+        return () => clearInterval(interval);
+    }, []);
+
     return (
         <Card title="Ranking" style={{ minWidth: 370 }} headStyle={{ backgroundColor: 'black', color: 'whitesmoke' }}>
             <Table
                 columns={columns}
-                dataSource={() => {
-                    columns.at(0);
-                }}
+                dataSource={robotList.map((robot, index) => {
+                    return {
+                        position: index + 1,
+                        robot: robot.name,
+                        fight: robot.stats.draw + robot.stats.loose + robot.stats.win,
+                        win: robot.stats.win,
+                        draw: robot.stats.draw,
+                        loose: robot.stats.loose,
+                        point: robot.stats.score,
+                    };
+                })}
             />
         </Card>
     );
