@@ -12,7 +12,7 @@ export async function robotStat(idrobot) {
                 stat.score = stat.score + 4;
                 stat.win = stat.win + 1;
             } else {
-                stat.lose = stat.lose + 1;
+                stat.loose = stat.loose + 1;
             }
         }
     });
