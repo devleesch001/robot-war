@@ -1,4 +1,4 @@
-import { createCombat } from '../services/CombatService.js';
+import { createCombat } from './CombatService.js';
 
 export async function createCombatsTournoi(combat, etage, newTournoi) {
     // Crer une liste de combat

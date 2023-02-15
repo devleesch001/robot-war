@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { Combat } from '../models/CombatModel.js';
-import { createCombat } from '../services/RobotService.js';
+import { createCombat } from '../services/CombatService.js';
 
 const router = Router();
 
