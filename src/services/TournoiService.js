@@ -6,15 +6,17 @@ export async function createCombatsTournoi(combat, etage, newTournoi) {
         // Remplire les joueurs dans le tableau
         return null;
     } else if (combat == null) {
-        combat = await createCombat([], null, null);
-        console.log(combat);
+        combat = await createCombat([], null, 'FINAL');
         newTournoi.fights.push(combat);
         await createCombatsTournoi(combat, etage - 1, newTournoi);
     } else {
         let name = null;
         if (etage - 1 == 0) {
             name = 'INITMATCH';
+        } else {
+            name = 'TOURNAMENTMATCH';
         }
+
         const combatFils1 = await createCombat([], combat, name);
         newTournoi.fights.push(combatFils1);
         const combatFils2 = await createCombat([], combat, name);

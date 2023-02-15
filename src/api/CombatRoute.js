@@ -45,6 +45,29 @@ router.patch('/', async (req, res) => {
 
         if (typeof req.body.win === 'string' || req.body.win === null) {
             combat.win = req.body.win;
+            if (combat.name == 'INITMATCH' || combat.name == 'TOURNAMENTMATCH') {
+                /* empty */
+                console.log('#######################');
+                console.log(combat);
+                const nextfight = combat.nextfight.toString();
+                console.log('#######################');
+                console.log(nextfight);
+                const combatNewFight = await Combat.findById(nextfight);
+                console.log('#######################');
+                console.log(combatNewFight);
+
+                if (combatNewFight.fighters.find((e) => e._id.toString() === req.body.win)) {
+                    return res.status(500).json({ message: 'Internal Error' });
+                }
+
+                combatNewFight.fighters.push(req.body.win);
+
+                console.log('#######################');
+                console.log(combatNewFight);
+
+                await combatNewFight.save();
+                //
+            }
         }
 
         if (typeof req.body.duration === 'number') {

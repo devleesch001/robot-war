@@ -23,7 +23,6 @@ router.post('/', async (req, res) => {
         const newRobot = new Robot({
             name: req.body.name,
         });
-        console.log(newRobot);
 
         await newRobot.save();
 
