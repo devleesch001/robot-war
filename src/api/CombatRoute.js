@@ -45,7 +45,9 @@ router.patch('/', async (req, res) => {
 
         if (typeof req.body.win === 'string' || req.body.win === null) {
             combat.win = req.body.win;
-            if (combat.name == 'INITMATCH' || combat.name == 'TOURNAMENTMATCH') {
+            console.log(combat);
+            // if (combat.name == 'INITMATCH' || combat.name == 'TOURNAMENTMATCH') {
+            if (combat.nextfight !== undefined) {
                 /* empty */
                 console.log('#######################');
                 console.log(combat);
