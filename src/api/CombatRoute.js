@@ -59,7 +59,6 @@ router.patch('/', async (req, res) => {
                 combatNewFight.fighters.push(req.body.win);
 
                 await combatNewFight.save();
-                //
             }
         }
 
