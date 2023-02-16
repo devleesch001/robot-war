@@ -12,17 +12,17 @@ router.get('/', async (req, res) => {
             .populate('nextfight');
         return res.status(200).json(allCombat);
     } else if (typeof req.query.idrobot === 'string') {
-        const combatRobotWin = [];
+        const combatRobot = [];
 
         const allCombat = await Combat.find().populate('fighters').populate('win').populate('nextfight');
 
         allCombat.forEach(function (combat) {
             if (combat.fighters.find((e) => e._id.toString() === req.query.idrobot)) {
-                combatRobotWin.push(combat);
+                combatRobot.push(combat);
             }
         });
 
-        return res.status(200).json(combatRobotWin);
+        return res.status(200).json(combatRobot);
     } else {
         const allCombat = await Combat.find().populate('fighters').populate('win').populate('nextfight');
         return res.status(200).json(allCombat);

@@ -3,24 +3,16 @@ import mongoose from 'mongoose';
 // Définir le schéma de données pour les combats
 const ordealSchema = new mongoose.Schema(
     {
-        participants: [
+        robots: [
             {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'Robot',
             },
         ],
-        win: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Robot',
-        },
 
-        winners: { type: mongoose.Schema.Types.Mixed },
+        score: { type: mongoose.Schema.Types.Mixed },
 
-        nextfight: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Combat',
-        },
-        label: {
+        type: {
             type: String,
         },
         status: {
@@ -39,4 +31,4 @@ const ordealSchema = new mongoose.Schema(
 );
 
 // Créer un modèle à partir du schéma de données des combats
-export const Combat = mongoose.model('Combat', combatSchema);
+export const Ordeal = mongoose.model('Ordeal', ordealSchema);
