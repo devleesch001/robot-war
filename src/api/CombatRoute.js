@@ -31,7 +31,11 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        const newCombat = await createCombat(req.body.fighters, req.body.nextfight, null);
+        let label = null;
+        if (req.body.fighters.length > 2) {
+            label = 'MELEEGENERALE';
+        }
+        const newCombat = await createCombat(req.body.fighters, req.body.nextfight, label);
 
         return res.status(200).json({ newCombat });
     } catch (error) {
@@ -45,30 +49,23 @@ router.patch('/', async (req, res) => {
 
         if (typeof req.body.win === 'string' || req.body.win === null) {
             combat.win = req.body.win;
-            console.log(combat);
-            // if (combat.name == 'INITMATCH' || combat.name == 'TOURNAMENTMATCH') {
             if (combat.nextfight !== undefined) {
-                /* empty */
-                console.log('#######################');
-                console.log(combat);
                 const nextfight = combat.nextfight.toString();
-                console.log('#######################');
-                console.log(nextfight);
                 const combatNewFight = await Combat.findById(nextfight);
-                console.log('#######################');
-                console.log(combatNewFight);
 
                 if (combatNewFight.fighters.find((e) => e._id.toString() === req.body.win)) {
                     return res.status(500).json({ message: 'Internal Error' });
                 }
-
                 combatNewFight.fighters.push(req.body.win);
-
-                console.log('#######################');
-                console.log(combatNewFight);
 
                 await combatNewFight.save();
                 //
+            }
+        }
+
+        if (req.body.winners instanceof Object) {
+            if (combat.fighters.length > 2) {
+                combat.winners = req.body.winners;
             }
         }
 

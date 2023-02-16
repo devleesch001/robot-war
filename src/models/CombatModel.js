@@ -13,11 +13,14 @@ const combatSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Robot',
         },
+
+        winners: { type: mongoose.Schema.Types.Mixed },
+
         nextfight: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Combat',
         },
-        name: {
+        label: {
             type: String,
         },
         status: {
