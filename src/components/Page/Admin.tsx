@@ -1,16 +1,17 @@
 import React from 'react';
 import { Col, Layout, Menu, Row, Typography } from 'antd';
-import test from '../test.png';
+import test from '../../test.png';
 
 const { Content } = Layout;
 
 import { red } from '@ant-design/colors';
-import CreateTournament from './Tournament/CreateTournament';
-import CreateRobot from './Robot/CreateRobot';
-import CreateFight from './Fight/CreateFight';
-import FightBoard from './Fight/FightBoard';
-import TournamentList from './Tournament/TournamentList';
-import RobotsBoard from './Robot/RobotsBoard';
+import CreateTournament from '../Tournament/CreateTournament';
+import CreateRobot from '../Robot/CreateRobot';
+import CreateFight from '../Fight/CreateFight';
+import CreateOrder from '../Ordeal/CreateOrder';
+import FightBoard from '../Fight/FightBoard';
+import TournamentList from '../Tournament/TournamentList';
+import RobotsBoard from '../Robot/RobotsBoard';
 
 const Admin = () => {
     return (
@@ -53,6 +54,9 @@ const Admin = () => {
                         </Col>
                         <Col xs={24} md={12} xl={8} xxl={6}>
                             <CreateFight />
+                        </Col>{' '}
+                        <Col xs={24} md={12} xl={8} xxl={6}>
+                            <CreateOrder />
                         </Col>
                     </Row>
                 </Content>

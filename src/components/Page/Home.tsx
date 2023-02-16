@@ -1,9 +1,9 @@
 import React from 'react';
 import { Col, Layout, Menu, Row, Typography } from 'antd';
 const { Content } = Layout;
-import FightBoard from './Fight/FightBoard';
-import TournamentList from './Tournament/TournamentList';
-import RobotsBoard from './Robot/RobotsBoard';
+import FightBoard from '../Fight/FightBoard';
+import TournamentList from '../Tournament/TournamentList';
+import RobotsBoard from '../Robot/RobotsBoard';
 import { blue } from '@ant-design/colors';
 
 function Home() {

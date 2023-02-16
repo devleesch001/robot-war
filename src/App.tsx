@@ -1,14 +1,14 @@
 import React from 'react';
 import './App.css';
 import CreateTournament from './components/Tournament/CreateTournament';
-import Home from './components/Home';
+import Home from './components/Page/Home';
 
 import { Routes, Route } from 'react-router-dom';
-import Admin from './components/Admin';
+import Admin from './components/Page/Admin';
 import { ConfigProvider } from 'antd';
 import DisplayFight from './components/Fight/DisplayFight';
-import MediaPlayer from './components/DisplayFight/MediaPlayer';
 import TournamentBoard from './components/Tournament/TournamentBoard';
+import CreateOrder from './components/Ordeal/CreateOrder';
 const App = () => {
     return (
         <ConfigProvider
@@ -31,11 +31,7 @@ const App = () => {
                     <Route path="/admin/fights/:fightId" element={<DisplayFight isAdmin={true} />} />
                     <Route path="/tournament/:tournamentId" element={<TournamentBoard isAdmin={false} />} />
                     <Route path="/admin/tournament/:tournamentId" element={<TournamentBoard isAdmin={true} />} />
-                    <Route path="/displayMatch" element={<DisplayFight isAdmin={false} />} />
-                    <Route
-                        path="/mediaplayer"
-                        element={<MediaPlayer mediaSrc={'https://youtu.be/rZi7YKcMGJI?list=RDrZi7YKcMGJI'} />}
-                    />
+                    <Route path="/C" element={<CreateOrder />} />
                 </Route>
             </Routes>
         </ConfigProvider>

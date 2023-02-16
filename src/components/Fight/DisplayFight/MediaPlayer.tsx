@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Spin, Card, Row } from 'antd';
-import logo from './robot_rezise.gif';
+import logo from '../../../robot_rezise.gif';
 
 interface Props {
     mediaSrc: string;

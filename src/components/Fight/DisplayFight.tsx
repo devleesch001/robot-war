@@ -7,9 +7,9 @@ import { red } from '@ant-design/colors';
 import { BattleInterface, getBattle } from '../../api/BattleApi';
 import TimerFight from '../Element/Timer';
 import Winner from './Winner';
-import MediaPlayer from '../DisplayFight/MediaPlayer';
-import CardStatisticalFight from '../DisplayFight/CardStatisticalFight';
-import RankingCard from '../DisplayFight/RankingCard';
+import MediaPlayer from './DisplayFight/MediaPlayer';
+import CardStatisticalFight from './DisplayFight/CardStatisticalFight';
+import RankingCard from './DisplayFight/RankingCard';
 
 type DisplayFightParams = {
     fightId: string;

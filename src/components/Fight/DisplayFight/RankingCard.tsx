@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Card, Table } from 'antd';
-
-import { getRobotsWithStats } from '../../api/RobotApi';
-import { RobotInterface } from '../../api/RobotApi';
+import { RobotInterface } from '../../../api/RobotApi';
+import { getRobotsWithStats } from '../../../api/RobotApi';
 
 const columns = [
     {
@@ -42,13 +41,13 @@ const columns = [
     },
 ];
 
-const RankingCard: React.FC = () => {
-    const [robots, setRobots] = React.useState<RobotInterface[]>([]);
+const RanckingCard: React.FC = () => {
+    const [robotList, setRobotlist] = React.useState<RobotInterface[]>([]);
 
     React.useEffect(() => {
         const interval = setInterval(() => {
             getRobotsWithStats().then((robots) => {
-                setRobots(robots.sort((robotA, robotB) => robotB.stats.score - robotA.stats.score));
+                setRobotlist(robots.sort((robotA, robotB) => robotB.stats.score - robotA.stats.score));
             });
         }, 1000);
         return () => clearInterval(interval);
@@ -58,7 +57,7 @@ const RankingCard: React.FC = () => {
         <Card title="Ranking" style={{ minWidth: 370 }} headStyle={{ backgroundColor: 'black', color: 'whitesmoke' }}>
             <Table
                 columns={columns}
-                dataSource={robots.map((robot, index) => {
+                dataSource={robotList.map((robot, index) => {
                     return {
                         position: index + 1,
                         robot: robot.name,
@@ -74,4 +73,4 @@ const RankingCard: React.FC = () => {
     );
 };
 
-export default RankingCard;
+export default RanckingCard;
