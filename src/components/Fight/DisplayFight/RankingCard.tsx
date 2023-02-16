@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Card, Table } from 'antd';
-import { RobotInterface } from '../../api/RobotApi';
-import { getRobotsWithStats } from '../../api/RobotApi';
+import { RobotInterface } from '../../../api/RobotApi';
+import { getRobotsWithStats } from '../../../api/RobotApi';
 
 const columns = [
     {

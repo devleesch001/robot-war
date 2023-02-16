@@ -8,6 +8,7 @@ import { red } from '@ant-design/colors';
 import CreateTournament from '../Tournament/CreateTournament';
 import CreateRobot from '../Robot/CreateRobot';
 import CreateFight from '../Fight/CreateFight';
+import CreateOrder from '../Ordeal/CreateOrder';
 import FightBoard from '../Fight/FightBoard';
 import TournamentList from '../Tournament/TournamentList';
 import RobotsBoard from '../Robot/RobotsBoard';
@@ -53,6 +54,9 @@ const Admin = () => {
                         </Col>
                         <Col xs={24} md={12} xl={8} xxl={6}>
                             <CreateFight />
+                        </Col>{' '}
+                        <Col xs={24} md={12} xl={8} xxl={6}>
+                            <CreateOrder />
                         </Col>
                     </Row>
                 </Content>

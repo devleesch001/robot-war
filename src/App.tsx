@@ -8,6 +8,7 @@ import Admin from './components/Page/Admin';
 import { ConfigProvider } from 'antd';
 import DisplayFight from './components/Fight/DisplayFight';
 import TournamentBoard from './components/Tournament/TournamentBoard';
+import CreateOrder from './components/Ordeal/CreateOrder';
 const App = () => {
     return (
         <ConfigProvider
@@ -30,7 +31,7 @@ const App = () => {
                     <Route path="/admin/fights/:fightId" element={<DisplayFight isAdmin={true} />} />
                     <Route path="/tournament/:tournamentId" element={<TournamentBoard isAdmin={false} />} />
                     <Route path="/admin/tournament/:tournamentId" element={<TournamentBoard isAdmin={true} />} />
-                    <Route path="/displayMatch" element={<DisplayFight isAdmin={false} />} />
+                    <Route path="/C" element={<CreateOrder />} />
                 </Route>
             </Routes>
         </ConfigProvider>

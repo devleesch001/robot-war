@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Col, Divider, Row, Typography } from 'antd';
-import { BattleInterface } from '../../api/BattleApi';
-import LabelRobot, { WinPos } from '../Element/LabelRobot';
-import Label from '../Element/Label';
+import { BattleInterface } from '../../../api/BattleApi';
+import LabelRobot, { WinPos } from '../../Element/LabelRobot';
+import Label from '../../Element/Label';
 import { blue } from '@ant-design/colors';
-import { getRobot, RobotInterface } from '../../api/RobotApi';
+import { getRobot, RobotInterface } from '../../../api/RobotApi';
 
 // interface TeamCardProps {
 //     fighters: RobotInterface[];

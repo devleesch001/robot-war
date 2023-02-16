@@ -1,8 +1,7 @@
-import React from 'react';
+import * as React from 'react';
+import { Card, Button, Form, Input, Select, notification } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-import { Card, Button, Form, Select, notification, Input } from 'antd';
 import { getRobots, RobotInterface } from '../../api/RobotApi';
-import { addTournament } from '../../api/TournamentApi';
 
 const formItemLayout = {
     labelCol: {
@@ -22,7 +21,7 @@ const formItemLayoutWithOutLabel = {
     },
 };
 
-const CreateTournament: React.FC = () => {
+const CreateOrder = () => {
     const [form] = Form.useForm();
 
     const [robots, setRobots] = React.useState<RobotInterface[]>([]);
@@ -37,37 +36,33 @@ const CreateTournament: React.FC = () => {
         }, 1000);
         return () => clearInterval(interval);
     }, []);
-    const onFinish = (values: any) => {
-        addTournament(values).then((res) => {
-            console.log(res);
-            notification.open({
-                message: 'Robot Created',
-            });
-            form.resetFields();
-        });
-        notification.open({
-            message: 'Tournament Created',
-        });
-    };
+
+    // const onFinish = (values: any) => {
+    //     addTournament(values).then((res) => {
+    //         console.log(res);
+    //         notification.open({
+    //             message: 'Robot Ordeal',
+    //         });
+    //         form.resetFields();
+    //     });
+    //     notification.open({
+    //         message: 'Ordeal Created',
+    //     });
+    // };
 
     return (
         <Card
-            title="Create Tournament"
+            title="Create Ordeal"
             bordered={false}
             style={{ minWidth: 280 }}
             headStyle={{ backgroundColor: 'black', color: 'whitesmoke' }}
         >
             <Form
                 form={form}
-                name="new_tournament_form_item"
+                name="new_Ordeal_form_item"
                 wrapperCol={{ xs: { span: 24, offset: 0 }, sm: { span: 20, offset: 4 } }}
-                onFinish={onFinish}
             >
-                <Form.Item
-                    label="name"
-                    name="name"
-                    rules={[{ required: true, message: 'Please input your name of tournament!' }]}
-                >
+                <Form.Item label="name" name="name" rules={[{ required: true, message: 'Please enter name ordeal!' }]}>
                     <Input style={{ width: '60%' }} />
                 </Form.Item>
                 <Form.List
@@ -75,8 +70,8 @@ const CreateTournament: React.FC = () => {
                     rules={[
                         {
                             validator: async (_, names) => {
-                                if (!names || names.length < 4) {
-                                    return Promise.reject(new Error('minimum 4 teams to create tournament'));
+                                if (!names || names.length < 1) {
+                                    return Promise.reject(new Error('minimum 1 teams to create ordeal'));
                                 }
                             },
                         },
@@ -98,7 +93,7 @@ const CreateTournament: React.FC = () => {
                                             {
                                                 required: true,
                                                 whitespace: true,
-                                                message: "Please input team's name or delete this field.",
+                                                message: "Please select team's name or delete this field.",
                                             },
                                         ]}
                                         noStyle
@@ -142,4 +137,4 @@ const CreateTournament: React.FC = () => {
         </Card>
     );
 };
-export default CreateTournament;
+export default CreateOrder;
