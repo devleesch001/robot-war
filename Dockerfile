@@ -10,9 +10,10 @@ COPY package*.json ./
 
 ENV NODE_ENV=production
 
+RUN rm -f .eslintrc.json
 RUN npm install -g npm@${NPM_VERSION}
 RUN npm install -g serve
-RUN npm ci --only=production
+RUN npm install
 
 COPY . ./
 
@@ -20,4 +21,4 @@ RUN npm run build
 
 EXPOSE 80
 
-CMD npm run start
+CMD serve -s build -l 80
