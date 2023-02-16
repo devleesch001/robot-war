@@ -2,7 +2,7 @@ import { Combat } from '../models/CombatModel.js';
 import { Ordeal } from '../models/OrdealModel.js';
 
 export async function robotStat(idrobot) {
-    const stat = { win: 0, draw: 0, loose: 0, score: 0, meleegenerale: 0, boule: 0, timecourse: 0 };
+    const stat = { win: 0, draw: 0, loose: 0, score: 0, meleegenerale: 0, boule: 0, parcours: 0, degats: 0 };
     const allCombat = await Combat.find().populate('fighters').populate('win').populate('nextfight');
     allCombat.forEach(function (combat) {
         if (combat.fighters.find((e) => e._id.toString() === idrobot)) {
@@ -43,17 +43,24 @@ export async function robotStat(idrobot) {
     });
 
     // ########################################################################################
+
     const allOrdeal = await Ordeal.find().populate('robots');
     allOrdeal.forEach(function (ordeal) {
         if (ordeal.type === 'PINGPONG') {
             if (ordeal.robots.find((e) => e._id.toString() === idrobot)) {
-                stat.boule = ordeal.score[idrobot];
+                stat.boule = parseInt(ordeal.score[idrobot]);
             }
         }
 
         if (ordeal.type === 'PARCOURS') {
             if (ordeal.robots.find((e) => e._id.toString() === idrobot)) {
-                stat.timecourse = ordeal.score[idrobot];
+                stat.parcours = parseInt(ordeal.score[idrobot]);
+            }
+        }
+
+        if (ordeal.type === 'DEGATS') {
+            if (ordeal.robots.find((e) => e._id.toString() === idrobot)) {
+                stat.degats = parseInt(ordeal.score[idrobot]);
             }
         }
 
