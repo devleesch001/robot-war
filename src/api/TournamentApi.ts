@@ -40,8 +40,7 @@ export const addTournament = async (data: TournamentPostInterface) => {
 };
 
 export const formatTournament = (data: TournamentInterface): Match[] => {
-    const value = data.fights.map((fight) => {
-        // console.log(fight);
+    return data.fights.map((fight) => {
         return {
             id: fight._id ?? '',
             name: fight.fighters.map((robot) => robot.name).join(' vs '),
@@ -51,7 +50,7 @@ export const formatTournament = (data: TournamentInterface): Match[] => {
             participants: fight.fighters.map((fighter) => {
                 return {
                     id: fighter._id,
-                    resultText: fight.win === fighter._id ? 'WON' : 'test',
+                    resultText: fight.win ? ((fight.win as unknown as string) === fighter._id ? 'Won' : 'Lose') : '',
                     isWinner: fight.win === fighter._id,
                     status: 'NO_PARTY',
                     name: fighter.name,
@@ -59,29 +58,4 @@ export const formatTournament = (data: TournamentInterface): Match[] => {
             }),
         } as Match;
     });
-    console.log(value);
-    // value.push({
-    //     id: 1,
-    //     name: 'test',
-    //     nextMatchId: '63eb8d0e6149848c424a8f39',
-    //     startTime: new Date().toDateString(),
-    //     state: 'NO_PARTY',
-    //     participants: [
-    //         {
-    //             id: 1,
-    //             resultText: 'WON',
-    //             isWinner: false,
-    //             status: 'NO_PARTY',
-    //             name: 'test',
-    //         },
-    //         {
-    //             id: 2,
-    //             resultText: 'WON',
-    //             isWinner: false,
-    //             status: 'NO_PARTY',
-    //             name: 'test 2',
-    //         },
-    //     ],
-    // });
-    return value;
 };

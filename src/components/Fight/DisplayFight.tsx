@@ -1,15 +1,15 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
+
+import { useParams } from 'react-router-dom';
 import { Row, Col, Menu, Typography } from 'antd';
+import { red } from '@ant-design/colors';
+
+import { BattleInterface, getBattle } from '../../api/BattleApi';
+import TimerFight from '../Element/Timer';
+import Winner from './Winner';
 import MediaPlayer from '../DisplayFight/MediaPlayer';
 import CardStatisticalFight from '../DisplayFight/CardStatisticalFight';
-import RanckingCard from '../DisplayFight/RanckingCard';
-import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { BattleInterface, getBattle } from '../../api/BattleApi';
-import { red } from '@ant-design/colors';
-import TimerFight from '../Element/Timer';
-import { getRobots } from '../../api/RobotApi';
-import Winner from './Winner';
+import RankingCard from '../DisplayFight/RankingCard';
 
 type DisplayFightParams = {
     fightId: string;
@@ -74,7 +74,7 @@ const DisplayFight: React.FC<DisplayFightProps> = (props) => {
                             <CardStatisticalFight fight={fight} />
                         </Col>
                         <Col span={12}>
-                            <RanckingCard />
+                            <RankingCard />
                         </Col>
                     </Row>
                 </>

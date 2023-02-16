@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { Card, Button, Form, Select, notification, Input } from 'antd';
-import { addRobot, getRobots, RobotInterface } from '../../api/RobotApi';
+import { getRobots, RobotInterface } from '../../api/RobotApi';
 import { addTournament } from '../../api/TournamentApi';
-
-const { Option } = Select;
 
 const formItemLayout = {
     labelCol: {

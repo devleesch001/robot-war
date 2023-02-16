@@ -46,13 +46,9 @@ const RanckingCard: React.FC = () => {
 
     React.useEffect(() => {
         const interval = setInterval(() => {
-            getRobotsWithStats()
-                .then((Robot) => {
-                    setRobotlist(Robot.sort((robot) => robot.stats.score).reverse());
-                })
-                .catch((err) => {
-                    setRobotlist([]);
-                });
+            getRobotsWithStats().then((robots) => {
+                setRobotlist(robots.sort((robotA, robotB) => robotB.stats.score - robotA.stats.score));
+            });
         }, 1000);
         return () => clearInterval(interval);
     }, []);

@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
 import CreateTournament from './components/Tournament/CreateTournament';
-import Home from './components/Home';
+import Home from './components/Page/Home';
 
 import { Routes, Route } from 'react-router-dom';
-import Admin from './components/Admin';
+import Admin from './components/Page/Admin';
 import { ConfigProvider } from 'antd';
 import DisplayFight from './components/Fight/DisplayFight';
 import TournamentBoard from './components/Tournament/TournamentBoard';
