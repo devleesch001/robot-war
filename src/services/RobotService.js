@@ -1,20 +1,25 @@
 import { Combat } from '../models/CombatModel.js';
 import { Ordeal } from '../models/OrdealModel.js';
+import { Robot } from '../models/RobotModel.js';
 
 export async function robotStat(idrobot) {
     const stat = { win: 0, draw: 0, loose: 0, score: 0, meleegenerale: 0, boule: 0, parcours: 0, degats: 0 };
+    const robot = await Robot.findById(idrobot);
     const allCombat = await Combat.find().populate('fighters').populate('win').populate('nextfight');
     allCombat.forEach(function (combat) {
         if (combat.fighters.find((e) => e._id.toString() === idrobot)) {
             if (combat.win != undefined) {
-                if (combat.win == null) {
-                    stat.score = stat.score + 2;
-                    stat.draw = stat.draw + 1;
-                } else if (combat.win._id.toString() == idrobot) {
-                    stat.score = stat.score + 4;
-                    stat.win = stat.win + 1;
-                } else {
-                    stat.loose = stat.loose + 1;
+                console.log();
+                if (!robot.name.includes('Bot')) {
+                    if (combat.win == null) {
+                        stat.score = stat.score + 2;
+                        stat.draw = stat.draw + 1;
+                    } else if (combat.win._id.toString() == idrobot) {
+                        stat.score = stat.score + 4;
+                        stat.win = stat.win + 1;
+                    } else {
+                        stat.loose = stat.loose + 1;
+                    }
                 }
             }
 

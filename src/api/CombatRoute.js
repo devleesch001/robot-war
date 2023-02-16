@@ -62,6 +62,10 @@ router.patch('/', async (req, res) => {
             }
         }
 
+        if (typeof req.body.fighter === 'string') {
+            combat.fighters.push(req.body.fighter);
+        }
+
         if (req.body.winners instanceof Object) {
             if (combat.fighters.length > 2) {
                 combat.winners = req.body.winners;
