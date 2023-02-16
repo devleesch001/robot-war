@@ -3,21 +3,6 @@ import { Card, Table } from 'antd';
 import { RobotInterface } from '../../api/RobotApi';
 import { getRobotsWithStats } from '../../api/RobotApi';
 
-interface datasources {
-    Position: number;
-    Teams: string;
-
-    Fight: number;
-
-    Win: number;
-
-    Draw: number;
-
-    Loose: number;
-
-    Point: number;
-}
-
 const columns = [
     {
         title: 'Position',
@@ -63,7 +48,7 @@ const RanckingCard: React.FC = () => {
         const interval = setInterval(() => {
             getRobotsWithStats()
                 .then((Robot) => {
-                    setRobotlist(Robot.sort((robot) => robot.stats.score));
+                    setRobotlist(Robot.sort((robot) => robot.stats.score).reverse());
                 })
                 .catch((err) => {
                     setRobotlist([]);

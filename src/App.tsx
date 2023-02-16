@@ -7,7 +7,6 @@ import { Routes, Route } from 'react-router-dom';
 import Admin from './components/Admin';
 import { ConfigProvider } from 'antd';
 import DisplayFight from './components/Fight/DisplayFight';
-import MediaPlayer from './components/DisplayFight/MediaPlayer';
 import TournamentBoard from './components/Tournament/TournamentBoard';
 const App = () => {
     return (
@@ -32,10 +31,6 @@ const App = () => {
                     <Route path="/tournament/:tournamentId" element={<TournamentBoard isAdmin={false} />} />
                     <Route path="/admin/tournament/:tournamentId" element={<TournamentBoard isAdmin={true} />} />
                     <Route path="/displayMatch" element={<DisplayFight isAdmin={false} />} />
-                    <Route
-                        path="/mediaplayer"
-                        element={<MediaPlayer mediaSrc={'https://youtu.be/rZi7YKcMGJI?list=RDrZi7YKcMGJI'} />}
-                    />
                 </Route>
             </Routes>
         </ConfigProvider>
