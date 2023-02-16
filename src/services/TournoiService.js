@@ -10,16 +10,16 @@ export async function createCombatsTournoi(combat, etage, newTournoi) {
         newTournoi.fights.push(combat);
         await createCombatsTournoi(combat, etage - 1, newTournoi);
     } else {
-        let name = null;
+        let label = null;
         if (etage - 1 == 0) {
-            name = 'INITMATCH';
+            label = 'INITMATCH';
         } else {
-            name = 'TOURNAMENTMATCH';
+            label = 'TOURNAMENTMATCH';
         }
 
-        const combatFils1 = await createCombat([], combat, name);
+        const combatFils1 = await createCombat([], combat, label);
         newTournoi.fights.push(combatFils1);
-        const combatFils2 = await createCombat([], combat, name);
+        const combatFils2 = await createCombat([], combat, label);
         newTournoi.fights.push(combatFils2);
         await createCombatsTournoi(combatFils1, etage - 1, newTournoi);
         await createCombatsTournoi(combatFils2, etage - 1, newTournoi);
@@ -29,7 +29,7 @@ export async function createCombatsTournoi(combat, etage, newTournoi) {
 export async function addRobotInCombatsTournoi(newTournoi) {
     let listFighters = newTournoi.fighters.slice();
     newTournoi.fights.forEach(function (combat) {
-        if (combat.name === 'INITMATCH') {
+        if (combat.label === 'INITMATCH') {
             combat.fighters = listFighters.splice(0, 2);
             combat.save();
         }

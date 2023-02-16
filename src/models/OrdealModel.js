@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 
 // Définir le schéma de données pour les combats
-const combatSchema = new mongoose.Schema(
+const ordealSchema = new mongoose.Schema(
     {
-        fighters: [
+        participants: [
             {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'Robot',
