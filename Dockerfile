@@ -12,10 +12,10 @@ ENV NODE_ENV=production
 
 RUN npm install -g npm@${NPM_VERSION}
 RUN npm install -g serve
-RUN npm ci --only=production
+RUN npm install
 
 COPY . ./
 
-EXPOSE 80
+EXPOSE 3001
 
-CMD serve -s build -l 80
+CMD npm run start
