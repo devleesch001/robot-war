@@ -8,22 +8,26 @@ export async function robotStat(idrobot) {
     const allCombat = await Combat.find().populate('fighters').populate('win').populate('nextfight');
     allCombat.forEach(function (combat) {
         if (combat.fighters.find((e) => e._id.toString() === idrobot)) {
-            if (combat.win != undefined) {
-                console.log();
-                if (!robot.name.includes('Bot')) {
-                    if (combat.win == null) {
-                        stat.score = stat.score + 2;
-                        stat.draw = stat.draw + 1;
-                    } else if (combat.win._id.toString() == idrobot) {
-                        stat.score = stat.score + 4;
-                        stat.win = stat.win + 1;
-                    } else {
-                        stat.loose = stat.loose + 1;
+            if (combat.fighters.find((e) => e.name.includes('Bot'))) {
+                /* empty */
+            } else {
+                if (combat.win !== undefined) {
+                    console.log(combat.fighters);
+                    if (!robot.name.includes('Bot')) {
+                        if (combat.win === null) {
+                            stat.score = stat.score + 2;
+                            stat.draw = stat.draw + 1;
+                        } else if (combat.win._id.toString() === idrobot) {
+                            stat.score = stat.score + 4;
+                            stat.win = stat.win + 1;
+                        } else {
+                            stat.loose = stat.loose + 1;
+                        }
                     }
                 }
             }
 
-            if (combat.winners != undefined) {
+            if (combat.winners !== undefined) {
                 // récupère les clés de l'objet winners
                 const listKeys = Object.keys(combat.winners);
                 // recherche la clé correspondant à l'idrobot
@@ -46,6 +50,12 @@ export async function robotStat(idrobot) {
             }
         }
     });
+
+    // allCombat.forEach(function (combat) {
+    //     if (combat.fighters.find((e) => e._id.toString() === idrobot)) {
+    //         console.log(combat.fighters);
+    //     }
+    // });
 
     // ########################################################################################
 
