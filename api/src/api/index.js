@@ -13,5 +13,8 @@ router.use('/battle', CombatRoute);
 router.use('/tournament', TournoiRoute);
 
 router.use('/ordeal', OrdealRoute);
+router.get('/ping', (req, res) => {
+    res.status(200).json({ message: 'pong' });
+});
 
 export default router;

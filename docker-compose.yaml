@@ -1,0 +1,33 @@
+name: robot-war
+services:
+  app:
+    restart: always
+    labels:
+      traefik.enable: true
+      traefik.docker.network: proxy
+      traefik.http.routers.robot-war.entrypoints: websecure
+      traefik.http.routers.robot-war.rule: Host(`robot-war.dev-analysis.com`)
+      traefik.http.routers.robot-war.tls.certresolver: resolver
+      traefik.http.services.robot-war.loadbalancer.server.port: 80
+    networks:
+      - proxy
+      - default
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo
+    restart: always
+    volumes:
+      - "./data/db:/data/db"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    networks:
+      - default
+
+networks:
+  proxy:
+    external: true
+  default:
+    external: false
