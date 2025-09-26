@@ -1,24 +1,26 @@
-ARG NODE_VERSION=18
-ARG NPM_VERSION=8.6.0
-
-FROM node:${NODE_VERSION}
+FROM node:18 AS build
 
 WORKDIR /usr/src/app
-ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
 COPY package*.json ./
 
 ENV NODE_ENV=production
 
 RUN rm -f .eslintrc.json
-RUN npm install -g npm@${NPM_VERSION}
-RUN npm install -g serve
-RUN npm install
+RUN npm ci
 
 COPY . ./
 
 RUN npm run build
 
+FROM node:18 AS production
+
+WORKDIR /usr/src/app
+
+COPY --from=build /usr/src/app/build ./build
+
+RUN npm install -g serve
+
 EXPOSE 80
 
-CMD serve -s build -l 80
+CMD ["serve", "-s", "build", "-l", "80"]
