@@ -4,8 +4,6 @@ WORKDIR /usr/src/ui
 
 COPY ui/package*.json ./
 
-ENV NODE_ENV=production
-
 RUN npm ci
 
 COPY ui ./
