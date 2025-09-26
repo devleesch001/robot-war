@@ -34,14 +34,14 @@ const server = app.listen(port, '0.0.0.0', () => {
 
 // Graceful shutdown
 const shutdown = async () => {
-    console.log('INFO  Gracefully shutting down. Please wait...');
+    console.log('INFO Gracefully shutting down. Please wait...');
     server.close(async (err) => {
         if (err) {
             console.error('Error closing HTTP server:', err);
             process.exit(1);
         }
         try {
-            await MongooseService.close?.();
+            await MongooseService.close();
         } catch (e) {
             console.error('Error closing MongoDB:', e);
         }
