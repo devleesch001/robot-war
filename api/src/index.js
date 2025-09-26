@@ -23,6 +23,11 @@ app.use('/api', ApiIndex);
 app.use(express.static(path.join(process.cwd(), 'ui')));
 console.log(`[server]: Serving React static files from: ${path.join(process.cwd(), 'ui', 'build')}`);
 
+// Fallback: serve React index.html for any route not handled
+app.get('*', (req, res) => {
+    res.sendFile(path.join(process.cwd(), 'ui', 'index.html'));
+});
+
 const server = app.listen(port, '0.0.0.0', () => {
     console.log(`[server]: Server is running at http://0.0.0.0:${port}`);
 });
