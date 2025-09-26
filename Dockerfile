@@ -20,7 +20,7 @@ COPY api/package*.json ./
 ENV NODE_ENV=production
 ENV PORT=80
 
-RUN npm ci
+RUN npm ci --only=production
 
 COPY api/src ./
 

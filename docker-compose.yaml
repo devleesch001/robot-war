@@ -1,7 +1,7 @@
 name: robot-war
 services:
   app:
-    image: robot-war:latest
+    image:  ghcr.io/devleesch001/robot-war:latest
     restart: no
     environment:
       - MONGO_URI=mongodb://root:example@mongo:27017/?authSource=admin
